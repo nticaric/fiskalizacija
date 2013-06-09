@@ -3,6 +3,7 @@
     "description": "PHP API za fiskalizaciju računa",
     "homepage": "http://github.com/nticaric/fiskalizacija",
     "license": "GNU General Public License",
+    "type": "library",
     "authors": [
         {
             "name": "Nenad Ticaric",
@@ -13,6 +14,6 @@
         "php": ">=5.3.0"
     },
     "autoload": {
-        "psr-0": {"nticaric": "core/"}
+        "psr-0": {"nticaric": "src/"}
     }
 }
