@@ -1,4 +1,6 @@
 <?php 
+namespace Fiskalizacija;
+
 class Fiskalizacija {
 	
 	public function generateUUID() {
