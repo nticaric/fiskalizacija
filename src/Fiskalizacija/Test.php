@@ -1,7 +1,12 @@
 <?php 
+
 namespace Fiskalizacija;
 
-class Fiskalizacija {
+class Test {
+
+	public function __construct() {
+		echo "ovo je test konstruktor";
+	}
 	
 	public function generateUUID() {
 		return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
