@@ -14,22 +14,19 @@ class Fiskalizacija {
 	private $uuid;
 	//privatni kljuc iz certifikata
 	private $pk;
-	private $certificate;
+	public $certificate;
 
-	public function __construct() {
-		//$certificate = null;
-		//$pass = $this->config("passphrase");
-		//$pkcs12 = $this->readCertificateFromDisk();
-
-		//openssl_pkcs12_read ( $pkcs12 , $this->certificate , $pass );
-		//var_dump( $this->certificate );
+	public function setCertificate($path, $pass)
+	{
+		$pkcs12 = $this->readCertificateFromDisk($path);
+		openssl_pkcs12_read ( $pkcs12 , $this->certificate , $pass );
 	}
 
-	public function readCertificateFromDisk() {
-		$cert = @file_get_contents($this->config("certificatePath"));
+	public function readCertificateFromDisk($path) {
+		$cert = @file_get_contents($path);
 		if(FALSE === $cert) {
 			throw new \Exception("Ne mogu procitati certifikat sa lokacije: " . 
-				$this->config("certificatePath"), 1);	
+				$path, 1);	
 		}
 		return $cert;
 	}
@@ -48,16 +45,6 @@ class Fiskalizacija {
 		return $this->uuid;
 	}
 
-	public function config( $index ) {
-		$config = array();
-		$dir = dirname(__FILE__);
-		$config = array_merge($config, require $dir . '\config.php');
-		if(!array_key_exists($index, $config)) {
-			throw new \Exception("Ne nalazim ['$index'] u konfiguraciji", 1);
-		}
-		return $config[$index];
-	}
-
 	/**
 	 * Generiranje zaštitnog koda na temelju ulaznih parametara
 	 * @param  [type] $pkey privatni kljuc iz certifikata
@@ -73,7 +60,7 @@ class Fiskalizacija {
 		$medjurezultat  = $pkey;
 		$medjurezultat .= $oib;
 		$medjurezultat .= $dt;
-		$medjurezultat .= $dt;
+		$medjurezultat .= $opp;
 		$medjurezultat .= $bor;
 		$medjurezultat .= $onu;
 		$medjurezultat .= $uir;
