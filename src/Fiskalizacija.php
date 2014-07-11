@@ -8,7 +8,6 @@
 * @author Nenad Tičarić <nticaric@gmail.com>
 * @project Fiskalizacija
 */
-namespace Fiskalizacija;
 
 class Fiskalizacija {
 
@@ -18,12 +17,12 @@ class Fiskalizacija {
 	private $certificate;
 
 	public function __construct() {
-		$certificate = null;
-		$pass = $this->config("passphrase");
-		$pkcs12 = $this->readCertificateFromDisk();
+		//$certificate = null;
+		//$pass = $this->config("passphrase");
+		//$pkcs12 = $this->readCertificateFromDisk();
 
-		openssl_pkcs12_read ( $pkcs12 , $this->certificate , $pass );
-		var_dump( $this->certificate );
+		//openssl_pkcs12_read ( $pkcs12 , $this->certificate , $pass );
+		//var_dump( $this->certificate );
 	}
 
 	public function readCertificateFromDisk() {
