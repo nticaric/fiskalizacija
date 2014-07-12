@@ -1,6 +1,4 @@
-<?php
-
-namespace Business;
+<?php namespace Nticaric\Fiskalizacija\Business;
 
 use XMLWriter;
 

@@ -1,10 +1,12 @@
 <?php
 
+use Nticaric\Fiskalizacija\Business\Address;
+
 class AddressTest extends \PHPUnit_Framework_TestCase
 {
     public function testAddressClass()
     {
-    	$address = new Business\Address;
+    	$address = new Address;
     	$address->street = "Sv. Mateja";
     	$address->houseNumber = "19";
     	$address->extrahouseNumber = "";

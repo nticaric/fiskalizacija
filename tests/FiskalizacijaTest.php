@@ -1,5 +1,7 @@
 <?php
 
+use Nticaric\Fiskalizacija\Fiskalizacija;
+
 class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateUUID()
