@@ -5,7 +5,7 @@ use XMLWriter;
 class AddressData
 {
 
-	public $adress;
+	public $address;
 
 	public function setAddress(Address $address)
 	{
