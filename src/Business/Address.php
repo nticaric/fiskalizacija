@@ -29,7 +29,9 @@ class Address
 		$writer->startElementNs($ns, 'Adresa', null);
 		$writer->writeElementNs($ns, 'Ulica', null, $this->street);
 		$writer->writeElementNs($ns, 'KucniBroj', null, $this->houseNumber);
-		$writer->writeElementNs($ns, 'KucniBrojDodatak', null, $this->extrahouseNumber);
+		if($this->extrahouseNumber != null) {
+			$writer->writeElementNs($ns, 'KucniBrojDodatak', null, $this->extrahouseNumber);
+		}
 		$writer->writeElementNs($ns, 'BrojPoste', null, $this->zipCode);
 		$writer->writeElementNs($ns, 'Naselje', null, $this->settlement);
 		$writer->writeElementNs($ns, 'Opcina', null, $this->city);

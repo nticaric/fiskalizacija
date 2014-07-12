@@ -9,7 +9,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     	$address = new Address;
     	$address->street = "Sv. Mateja";
     	$address->houseNumber = "19";
-    	$address->extrahouseNumber = "";
+    	$address->extrahouseNumber = "-";
     	$address->zipCode = "10000";
     	$address->settlement = "Zagreb";
     	$address->city = "Zagreb";

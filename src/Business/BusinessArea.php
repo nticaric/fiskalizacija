@@ -15,7 +15,7 @@ class BusinessArea
 	
 	public $dateOfusage;
 	
-	public $noteOfClosing;
+	public $noteOfClosing = null;
 
 	public $specificPurpose;
 
@@ -36,6 +36,11 @@ class BusinessArea
 	public function setOib($oib)
 	{
 		$this->oib = $oib;
+	}
+
+	public function setNoteOfClosing($noteOfClosing)
+	{
+		$this->noteOfClosing = $noteOfClosing;
 	}
 
 	public function setSpecificPurpose($purpose)
@@ -59,12 +64,16 @@ class BusinessArea
     	$writer->setIndentString("    ");
 		$writer->startElementNs($ns, 'PoslovniProstor', null);
 		$writer->writeElementNs($ns, 'Oib', null, $this->oib);
-    	$writer->writeElementNs($ns, 'OznPoslProstora', null, $this->noteOfBusinessArea);
+		$writer->writeElementNs($ns, 'OznPoslProstora', null, $this->noteOfBusinessArea);
     	//AdresniPodatak
 		$writer->writeRaw($this->addressData->toXML());
 		$writer->writeElementNs($ns, 'RadnoVrijeme', null, $this->workingTime);
 		$writer->writeElementNs($ns, 'DatumPocetkaPrimjene', null, $this->dateOfusage);
-		$writer->writeElementNs($ns, 'OznakaZatvaranja', null, $this->noteOfClosing);
+		
+		if($this->noteOfClosing != NULL) {
+			$writer->writeElementNs($ns, 'OznakaZatvaranja', null, $this->noteOfClosing);
+		}
+		
 		$writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
 		$writer->endElement();
 		

@@ -12,7 +12,7 @@ class BusinessAreaTest extends \PHPUnit_Framework_TestCase
     	$address = new Address;
     	$address->street = "Sv. Mateja";
     	$address->houseNumber = "19";
-    	$address->extrahouseNumber = "";
+    	$address->extrahouseNumber = "-";
     	$address->zipCode = "10000";
     	$address->settlement = "Zagreb";
     	$address->city = "Zagreb";
@@ -27,7 +27,7 @@ class BusinessAreaTest extends \PHPUnit_Framework_TestCase
         $businessArea->setDateOfusage($date);
 
         $businessArea->setNoteOfBusinessArea("ODV1");
-        // businessArea.setNoteOfClosing("z");
+        $businessArea->setNoteOfClosing("Z");
         $businessArea->setOib("32314900695");
         $businessArea->setSpecificPurpose("spec namjena");
         
