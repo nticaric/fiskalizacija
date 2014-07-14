@@ -12,7 +12,6 @@ class AddressData
 		$this->address = $address;
 	}
 
-
 	public function toXML()
 	{
 		$ns = 'tns';
