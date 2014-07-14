@@ -23,8 +23,7 @@ class BusinessAreaTest extends \PHPUnit_Framework_TestCase
         $businessArea = new BusinessArea;
         $businessArea->setAddressData($addressData);
 
-        $date = Carbon::now()->format("d.m.Y");
-        $businessArea->setDateOfusage($date);
+        $businessArea->setDateOfusage('13.07.2014');
 
         $businessArea->setNoteOfBusinessArea("ODV1");
         $businessArea->setNoteOfClosing("Z");
