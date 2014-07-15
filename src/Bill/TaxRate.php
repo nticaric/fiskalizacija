@@ -30,10 +30,12 @@ class TaxRate
         $writer->setIndent(true);
         $writer->setIndentString("    ");
         $writer->startElementNs($ns, 'Porez', null);
-        $writer->writeElementNs($ns, 'Naziv', null, $this->name);
-        $writer->writeElementNs($ns, 'Stopa', null, $this->rate);
-        $writer->writeElementNs($ns, 'Osnovica', null, $this->baseValue);
-        $writer->writeElementNs($ns, 'Iznos', null, $this->value);
+        if($this->name) {
+            $writer->writeElementNs($ns, 'Naziv', null, $this->name);    
+        }
+        $writer->writeElementNs($ns, 'Stopa', null, number_format($this->rate, 2));
+        $writer->writeElementNs($ns, 'Osnovica', null, number_format($this->baseValue, 2));
+        $writer->writeElementNs($ns, 'Iznos', null, number_format($this->value, 2));
         $writer->endElement();
 
         return $writer->outputMemory();

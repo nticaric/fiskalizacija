@@ -1,0 +1,54 @@
+<tns:Racun>
+    <tns:Oib>32314900695</tns:Oib>
+    <tns:USustPdv>true</tns:USustPdv>
+    <tns:DatVrijeme>15.07.2014</tns:DatVrijeme>
+    <tns:OznSlijed>N</tns:OznSlijed>
+<tns:BrRac>
+    <tns:BrOznRac>1</tns:BrOznRac>
+    <tns:OznPosPr>ODV1</tns:OznPosPr>
+    <tns:OznNapUr>1</tns:OznNapUr>
+</tns:BrRac>
+    <tns:Pdv><tns:Porez>
+    <tns:Stopa>25.10</tns:Stopa>
+    <tns:Osnovica>400.10</tns:Osnovica>
+    <tns:Iznos>20.10</tns:Iznos>
+</tns:Porez>
+<tns:Porez>
+    <tns:Stopa>10.10</tns:Stopa>
+    <tns:Osnovica>500.10</tns:Osnovica>
+    <tns:Iznos>15.44</tns:Iznos>
+</tns:Porez>
+</tns:Pdv>
+    <tns:Pnp><tns:Porez>
+    <tns:Stopa>30.10</tns:Stopa>
+    <tns:Osnovica>100.10</tns:Osnovica>
+    <tns:Iznos>10.10</tns:Iznos>
+</tns:Porez>
+<tns:Porez>
+    <tns:Stopa>20.10</tns:Stopa>
+    <tns:Osnovica>200.10</tns:Osnovica>
+    <tns:Iznos>20.10</tns:Iznos>
+</tns:Porez>
+</tns:Pnp>
+    <tns:OstaliPor><tns:Porez>
+    <tns:Naziv>Naziv1</tns:Naziv>
+    <tns:Stopa>40.10</tns:Stopa>
+    <tns:Osnovica>453.30</tns:Osnovica>
+    <tns:Iznos>12.10</tns:Iznos>
+</tns:Porez>
+<tns:Porez>
+    <tns:Naziv>Naziv2</tns:Naziv>
+    <tns:Stopa>27.10</tns:Stopa>
+    <tns:Osnovica>445.10</tns:Osnovica>
+    <tns:Iznos>50.10</tns:Iznos>
+</tns:Porez>
+</tns:OstaliPor>
+    <tns:IznosOslobPdv>23.50</tns:IznosOslobPdv>
+    <tns:IznosMarza>32.00</tns:IznosMarza>
+    <tns:IznosNePodlOpor>5.10</tns:IznosNePodlOpor>
+    <tns:IznosUkupno>456.10</tns:IznosUkupno>
+    <tns:NacinPlac>G</tns:NacinPlac>
+    <tns:OibOper>34562123431</tns:OibOper>
+    <tns:ZastKod>0ea34ce1d67c493e90c2e38acbf77d17</tns:ZastKod>
+    <tns:NakDost>false</tns:NakDost>
+</tns:Racun>

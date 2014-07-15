@@ -11,14 +11,14 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateUUID()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "TNTStudi0");
+    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
     	$res = $fis->generateUUID();
     	$this->assertRegExp("/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/", $res, 'Invalid UUID');
     }
 
     public function testReadCertificateFromDisk()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "TNTStudi0");
+    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
     	$pathToDemoCert = "./tests/demo.pfx";
     	$res = $fis->readCertificateFromDisk($pathToDemoCert);
     	$this->assertTrue($res != false);
@@ -26,9 +26,9 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCertificate()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "TNTStudi0");
+    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
     	$pathToDemoCert = "./tests/demo.pfx";
-    	$fis->setCertificate($pathToDemoCert, "TNTStudi0");
+    	$fis->setCertificate($pathToDemoCert, "password");
     	$this->assertNotNull($fis->certificate, 'Certificate must not be null');
     }
 
@@ -42,7 +42,7 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     {
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija("./tests/demo.pfx", "TNTStudi0");
+        $fis = new Fiskalizacija("./tests/demo.pfx", "password");
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $this->assertNotNull($soapMessage);
@@ -53,7 +53,7 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     {
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija("./tests/demo.pfx", "TNTStudi0");
+        $fis = new Fiskalizacija("./tests/demo.pfx", "password");
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
