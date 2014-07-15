@@ -199,12 +199,6 @@ class Fiskalizacija {
 	    $DOMResponse->loadXML($response);
 
 	    if ($code === 200 || $code == 0) {
-	        /* For RacunZahtjev */
-	        $jir = $DOMResponse->getElementsByTagName('Jir')->item(0);
-	        if ($jir) {
-	            return $jir->nodeValue;
-	        }
-	        /* For RacunZahtjev && PoslovniProstorZahtjev */
 	        return $response;
 	    } else {
 	        $SifraGreske = $DOMResponse->getElementsByTagName('SifraGreske')->item(0);
