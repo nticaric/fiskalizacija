@@ -16,16 +16,27 @@ use Carbon\Carbon;
 
 class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function config()
+    {
+        return array(
+            'certificatePath' => "./tests/demo.pfx",
+            'password'        => "password"
+        );
+    }
+
     public function testGenerateUUID()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $config = $this->config();
+    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
     	$res = $fis->generateUUID();
     	$this->assertRegExp("/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/", $res, 'Invalid UUID');
     }
 
     public function testReadCertificateFromDisk()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $config = $this->config();
+    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
     	$pathToDemoCert = "./tests/demo.pfx";
     	$res = $fis->readCertificateFromDisk($pathToDemoCert);
     	$this->assertTrue($res != false);
@@ -33,7 +44,8 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCertificate()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $config = $this->config();
+    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
     	$pathToDemoCert = "./tests/demo.pfx";
     	$fis->setCertificate($pathToDemoCert, "password");
     	$this->assertNotNull($fis->certificate, 'Certificate must not be null');
@@ -41,15 +53,17 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCertificateWithWrongpassword()
     {
-    	$fis = new Fiskalizacija("./tests/demo.pfx", "wrong_password");
+        $config = $this->config();
+    	$fis = new Fiskalizacija($config['certificatePath'], "wrong_password");
     	$this->assertNull($fis->certificate, 'Certificate must not be null');
     }
 
     public function testSignXML()
     {
+        $config = $this->config();
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $this->assertNotNull($soapMessage);
@@ -58,9 +72,10 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSendSoapBusinessRequest()
     {
+        $config = $this->config();
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
@@ -69,9 +84,10 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSendSoapBillRequest()
     {
+        $config = $this->config();
         $billRequest = $this->setBillRequest();
 
-        $fis = new Fiskalizacija("./tests/demo.pfx", "password");
+        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
         $soapMessage = $fis->signXML($billRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
