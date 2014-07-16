@@ -16,27 +16,37 @@ use Carbon\Carbon;
 
 class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 {
-
     public function config()
     {
         return array(
-            'certificatePath' => "./tests/demo.pfx",
-            'password'        => "password"
+            'certificatePath' => "./tests/demo2.pfx",
+            'password'        => "TNTStudi0"
         );
+    }
+
+    public function mockFiskalizacijaClass()
+    {
+        $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
+            ->setMethods(array('readCertificateFromDisk', 'signXML', 'sendSoap'))
+            ->setConstructorArgs($this->config())
+            ->getMock();
+        return $mock;
     }
 
     public function testGenerateUUID()
     {
-        $config = $this->config();
-    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+    	$fis = $this->mockFiskalizacijaClass();
     	$res = $fis->generateUUID();
     	$this->assertRegExp("/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/", $res, 'Invalid UUID');
     }
 
     public function testReadCertificateFromDisk()
     {
-        $config = $this->config();
-    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+    	$fis = $this->mockFiskalizacijaClass();
+        $fis->expects($this->once())
+            ->method('readCertificateFromDisk')
+            ->will($this->returnValue(true));
+
     	$pathToDemoCert = "./tests/demo.pfx";
     	$res = $fis->readCertificateFromDisk($pathToDemoCert);
     	$this->assertTrue($res != false);
@@ -44,8 +54,8 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCertificate()
     {
-        $config = $this->config();
-    	$fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+    	$fis = $this->mockFiskalizacijaClass();
+        $fis->certificate = "certificate";  
     	$pathToDemoCert = "./tests/demo.pfx";
     	$fis->setCertificate($pathToDemoCert, "password");
     	$this->assertNotNull($fis->certificate, 'Certificate must not be null');
@@ -54,7 +64,7 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     public function testSetCertificateWithWrongpassword()
     {
         $config = $this->config();
-    	$fis = new Fiskalizacija($config['certificatePath'], "wrong_password");
+    	$fis = $this->mockFiskalizacijaClass();
     	$this->assertNull($fis->certificate, 'Certificate must not be null');
     }
 
@@ -63,7 +73,11 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $config = $this->config();
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+        $fis = $this->mockFiskalizacijaClass();
+        $fis->expects($this->once())
+            ->method('signXML')
+            ->will($this->returnArgument(0));
+
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $this->assertNotNull($soapMessage);
@@ -75,7 +89,13 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $config = $this->config();
         $businessAreaRequest = $this->setBusinessAreaRequest();
 
-        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+        $fis = $this->mockFiskalizacijaClass();
+        $fis->expects($this->once())
+            ->method('signXML')
+            ->will($this->returnArgument(0));
+        $fis->expects($this->once())
+            ->method('sendSoap')
+            ->will($this->returnValue('PoslovniProstorOdgovor'));
         $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
@@ -87,7 +107,15 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $config = $this->config();
         $billRequest = $this->setBillRequest();
 
-        $fis = new Fiskalizacija($config['certificatePath'], $config['password']);
+        $fis = $this->mockFiskalizacijaClass();
+        $fis->expects($this->once())
+            ->method('signXML')
+            ->will($this->returnArgument(0));
+
+        $fis->expects($this->once())
+            ->method('sendSoap')
+            ->will($this->returnValue('RacunOdgovor'));
+
         $soapMessage = $fis->signXML($billRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
