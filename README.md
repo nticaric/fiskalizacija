@@ -78,7 +78,6 @@ var_dump($res);
 <?php
 
 use Nticaric\Fiskalizacija\Fiskalizacija;
-use Nticaric\Fiskalizacija\Fiskalizacija;
 use Nticaric\Fiskalizacija\Business\Address;
 use Nticaric\Fiskalizacija\Business\AddressData;
 use Nticaric\Fiskalizacija\Business\BusinessArea;
