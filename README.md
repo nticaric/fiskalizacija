@@ -62,6 +62,12 @@ $bill->setSecurityCode(
 $bill->setNoteOfRedelivary(false);
 
 $billRequest = new BillRequest($bill);
+
+$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+
+$soapMessage = $fis->signXML($billRequest->toXML());
+$res = $fis->sendSoap($soapMessage);
+var_dump($res);
 ```
 
 ###Primjer poslovnog prostora:
@@ -100,4 +106,11 @@ $businessArea->setSpecificPurpose("spec namjena");
 
 $businessArea->setWorkingTime("Pon:08-11h Uto:15-17");
 $businessAreaRequest = new BusinessAreaRequest($businessArea);
+
+$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+
+$soapMessage = $fis->signXML($businessAreaRequest->toXML());
+
+$res = $fis->sendSoap($soapMessage);
+var_dump($res);
 ```
