@@ -175,8 +175,8 @@ class Fiskalizacija {
 		    CURLOPT_POST => true,
 		    CURLOPT_POSTFIELDS => $payload,
 		    CURLOPT_SSL_VERIFYHOST => 2,
-		    CURLOPT_SSL_VERIFYPEER => true,
-		    CURLOPT_CAINFO => './tests/democacert.cer.pem',
+		    CURLOPT_SSL_VERIFYPEER => false,
+		    //CURLOPT_CAINFO => './tests/democacert.cer.pem',
 		);
 
 		curl_setopt_array($ch, $options);
