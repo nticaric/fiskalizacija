@@ -9,6 +9,7 @@ PHP API za fiskalizaciju računa
 
 <?php
 
+use Nticaric\Fiskalizacija\Fiskalizacija;
 use Nticaric\Fiskalizacija\Bill\Bill;
 use Nticaric\Fiskalizacija\Bill\Refund;
 use Nticaric\Fiskalizacija\Bill\BillNumber;
@@ -76,6 +77,7 @@ var_dump($res);
 
 <?php
 
+use Nticaric\Fiskalizacija\Fiskalizacija;
 use Nticaric\Fiskalizacija\Fiskalizacija;
 use Nticaric\Fiskalizacija\Business\Address;
 use Nticaric\Fiskalizacija\Business\AddressData;
