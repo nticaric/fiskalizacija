@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1406030545">
-  <project timestamp="1406030545">
+<coverage generated="1406031209">
+  <project timestamp="1406031209">
     <file name="/usr/share/php/File/Iterator/Autoload.php">
       <line num="47" type="stmt" count="0"/>
       <line num="48" type="stmt" count="0"/>
@@ -1921,16 +1921,15 @@
       </file>
       <file name="/var/www/fiskalizacija/src/Bill/BillRequest.php">
         <class name="BillRequest" namespace="Nticaric\Fiskalizacija\Bill">
-          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
         </class>
-        <line num="10" type="method" name="__construct" crap="1" count="2"/>
-        <line num="12" type="stmt" count="2"/>
+        <line num="11" type="method" name="__construct" crap="1" count="2"/>
         <line num="13" type="stmt" count="2"/>
-        <line num="15" type="method" name="toXML" crap="1" count="2"/>
-        <line num="17" type="stmt" count="2"/>
-        <line num="19" type="stmt" count="2"/>
+        <line num="14" type="stmt" count="2"/>
+        <line num="16" type="method" name="toXML" crap="1" count="2"/>
+        <line num="18" type="stmt" count="2"/>
         <line num="20" type="stmt" count="2"/>
-        <line num="22" type="stmt" count="2"/>
+        <line num="21" type="stmt" count="2"/>
         <line num="23" type="stmt" count="2"/>
         <line num="24" type="stmt" count="2"/>
         <line num="25" type="stmt" count="2"/>
@@ -1938,18 +1937,11 @@
         <line num="27" type="stmt" count="2"/>
         <line num="28" type="stmt" count="2"/>
         <line num="29" type="stmt" count="2"/>
-        <line num="32" type="stmt" count="2"/>
+        <line num="30" type="stmt" count="2"/>
         <line num="33" type="stmt" count="2"/>
-        <line num="35" type="stmt" count="2"/>
-        <line num="38" type="method" name="generateUUID" crap="1" count="2"/>
-        <line num="40" type="stmt" count="2"/>
-        <line num="41" type="stmt" count="2"/>
-        <line num="42" type="stmt" count="2"/>
-        <line num="43" type="stmt" count="2"/>
-        <line num="44" type="stmt" count="2"/>
-        <line num="45" type="stmt" count="2"/>
-        <line num="46" type="stmt" count="2"/>
-        <metrics loc="47" ncloc="45" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+        <line num="34" type="stmt" count="2"/>
+        <line num="36" type="stmt" count="2"/>
+        <metrics loc="37" ncloc="35" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
       </file>
       <file name="/var/www/fiskalizacija/src/Bill/Refund.php">
         <class name="Refund" namespace="Nticaric\Fiskalizacija\Bill">
@@ -2090,16 +2082,15 @@
       </file>
       <file name="/var/www/fiskalizacija/src/Business/BusinessAreaRequest.php">
         <class name="BusinessAreaRequest" namespace="Nticaric\Fiskalizacija\Business">
-          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
         </class>
-        <line num="10" type="method" name="__construct" crap="1" count="3"/>
-        <line num="12" type="stmt" count="3"/>
+        <line num="11" type="method" name="__construct" crap="1" count="3"/>
         <line num="13" type="stmt" count="3"/>
-        <line num="15" type="method" name="toXML" crap="1" count="3"/>
-        <line num="17" type="stmt" count="3"/>
-        <line num="19" type="stmt" count="3"/>
+        <line num="14" type="stmt" count="3"/>
+        <line num="16" type="method" name="toXML" crap="1" count="3"/>
+        <line num="18" type="stmt" count="3"/>
         <line num="20" type="stmt" count="3"/>
-        <line num="22" type="stmt" count="3"/>
+        <line num="21" type="stmt" count="3"/>
         <line num="23" type="stmt" count="3"/>
         <line num="24" type="stmt" count="3"/>
         <line num="25" type="stmt" count="3"/>
@@ -2107,18 +2098,11 @@
         <line num="27" type="stmt" count="3"/>
         <line num="28" type="stmt" count="3"/>
         <line num="29" type="stmt" count="3"/>
-        <line num="32" type="stmt" count="3"/>
+        <line num="30" type="stmt" count="3"/>
         <line num="33" type="stmt" count="3"/>
-        <line num="35" type="stmt" count="3"/>
-        <line num="38" type="method" name="generateUUID" crap="1" count="3"/>
-        <line num="40" type="stmt" count="3"/>
-        <line num="41" type="stmt" count="3"/>
-        <line num="42" type="stmt" count="3"/>
-        <line num="43" type="stmt" count="3"/>
-        <line num="44" type="stmt" count="3"/>
-        <line num="45" type="stmt" count="3"/>
-        <line num="46" type="stmt" count="3"/>
-        <metrics loc="47" ncloc="45" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+        <line num="34" type="stmt" count="3"/>
+        <line num="36" type="stmt" count="3"/>
+        <metrics loc="37" ncloc="35" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="18" coveredelements="18"/>
       </file>
     </package>
     <package name="Nticaric\Fiskalizacija">
@@ -2244,6 +2228,20 @@
         <line num="208" type="stmt" count="0"/>
         <line num="210" type="stmt" count="0"/>
         <metrics loc="216" ncloc="193" classes="1" methods="9" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="108" coveredstatements="14" elements="117" coveredelements="17"/>
+      </file>
+      <file name="/var/www/fiskalizacija/src/Request.php">
+        <class name="Request" namespace="Nticaric\Fiskalizacija">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="8" coveredelements="8"/>
+        </class>
+        <line num="5" type="method" name="generateUUID" crap="1" count="5"/>
+        <line num="7" type="stmt" count="5"/>
+        <line num="8" type="stmt" count="5"/>
+        <line num="9" type="stmt" count="5"/>
+        <line num="10" type="stmt" count="5"/>
+        <line num="11" type="stmt" count="5"/>
+        <line num="12" type="stmt" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="8" coveredelements="8"/>
       </file>
     </package>
     <package name="Carbon">
@@ -2744,6 +2742,6 @@
         <metrics loc="2127" ncloc="1042" classes="1" methods="135" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="355" coveredstatements="43" elements="490" coveredelements="47"/>
       </file>
     </package>
-    <metrics files="20" loc="6589" ncloc="4450" classes="16" methods="237" coveredmethods="46" conditionals="0" coveredconditionals="0" statements="2390" coveredstatements="289" elements="2627" coveredelements="335"/>
+    <metrics files="21" loc="6583" ncloc="4444" classes="17" methods="236" coveredmethods="45" conditionals="0" coveredconditionals="0" statements="2383" coveredstatements="282" elements="2619" coveredelements="327"/>
   </project>
 </coverage>
