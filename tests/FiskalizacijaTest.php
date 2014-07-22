@@ -33,13 +33,6 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    public function testGenerateUUID()
-    {
-    	$fis = $this->mockFiskalizacijaClass();
-    	$res = $fis->generateUUID();
-    	$this->assertRegExp("/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/", $res, 'Invalid UUID');
-    }
-
     public function testReadCertificateFromDisk()
     {
     	$fis = $this->mockFiskalizacijaClass();

@@ -39,42 +39,6 @@ class Fiskalizacija {
 		}
 		return $cert;
 	}
-	
-	public function generateUUID() {
-		return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-			mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-			mt_rand(0, 0xffff),
-			mt_rand(0, 0x0fff) | 0x4000,
-			mt_rand(0, 0x3fff) | 0x8000,
-			mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
-		);
-	}
-
-	public function getUUID() {
-		return $this->uuid;
-	}
-
-	/**
-	 * Generiranje zaštitnog koda na temelju ulaznih parametara
-	 * @param  [type] $pkey privatni kljuc iz certifikata
-	 * @param  [type] $oib  oib
-	 * @param  [type] $dt   datum i vrijeme izdavanja računa zapisan kao tekst u formatu 'dd.mm.gggg hh:mm:ss'
-	 * @param  [type] $bor  brojčana oznaka računa
-	 * @param  [type] $opp  oznaka poslovnog prostora
-	 * @param  [type] $onu  oznaka naplatnog uređaja
-	 * @param  [type] $uir  ukupni iznos računa
-	 * @return [type]       md5 hash
-	 */
-	public function generateZastitniKod($pkey, $oib, $dt, $bor, $opp, $onu, $uir) {
-		$medjurezultat  = $pkey;
-		$medjurezultat .= $oib;
-		$medjurezultat .= $dt;
-		$medjurezultat .= $opp;
-		$medjurezultat .= $bor;
-		$medjurezultat .= $onu;
-		$medjurezultat .= $uir;
-		return md5($medjurezultat);
-	}
 
 	public function signXML($XMLRequest)
 	{
