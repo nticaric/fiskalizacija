@@ -1,7 +1,6 @@
 <?php namespace Nticaric\Fiskalizacija\Business;
 
 use Nticaric\Fiskalizacija\Request;
-use XMLWriter;
 
 class BusinessAreaRequest extends Request
 {
