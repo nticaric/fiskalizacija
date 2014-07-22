@@ -3,3 +3,4 @@ composer.lock
 tests/demo.pfx
 tests/democacert.cer
 tests/democacert.cer.pem
+coverage
