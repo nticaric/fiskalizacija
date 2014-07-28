@@ -14,8 +14,6 @@ use DOMDocument, DOMElement, Exception;
 class Fiskalizacija {
 
 	private $uuid;
-	//privatni kljuc iz certifikata
-	private $pk;
 	public $certificate;
 	private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
 
@@ -27,6 +25,11 @@ class Fiskalizacija {
 		$this->setCertificate($path, $pass);
 		$this->privateKeyResource = openssl_pkey_get_private($this->certificate['pkey'], $pass);
 		$this->publicCertificateData = openssl_x509_parse($this->certificate['cert']);
+	}
+
+	public function getPrivateKey()
+	{
+		return $this->certificate['pkey']:
 	}
 
 	public function setCertificate($path, $pass)
