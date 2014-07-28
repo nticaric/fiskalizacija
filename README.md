@@ -59,9 +59,11 @@ $bill->setTotalValue(456.1);
 $bill->setTypeOfPlacanje("G");
 $bill->setOibOperative("34562123431");
 
+$fis = new Fiskalizacija("path/to/demo.pfx", "password", true);
+
 $bill->setSecurityCode(
     $bill->securityCode(
-        "private_key",
+        $fis->getPrivateKey(),
         $bill->oib, 
         $bill->dateTime, 
         $billNumber->numberNoteBill, 
@@ -70,11 +72,10 @@ $bill->setSecurityCode(
         $bill->totalValue
     )
 );
+
 $bill->setNoteOfRedelivary(false);
 
 $billRequest = new BillRequest($bill);
-
-$fis = new Fiskalizacija("./tests/demo.pfx", "password");
 
 $soapMessage = $fis->signXML($billRequest->toXML());
 $res = $fis->sendSoap($soapMessage);
@@ -118,7 +119,7 @@ $businessArea->setSpecificPurpose("spec namjena");
 $businessArea->setWorkingTime("Pon:08-11h Uto:15-17");
 $businessAreaRequest = new BusinessAreaRequest($businessArea);
 
-$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+$fis = new Fiskalizacija("./path/to/demo.pfx", "password", true);
 
 $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 
