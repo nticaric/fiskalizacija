@@ -9,11 +9,11 @@ PHP API za fiskalizaciju računa
 Ukoliko se radi o testnoj okolini sa demo certifikatom, treci parametar konustruktora je 
 potrebno postaviti u `true`
 
-	$fis = new Fiskalizacija("./tests/demo.pfx", "password", true);
+	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password", true);
 
 Ukoliko se radi o produkcijkoj okolini, treci parametar se moze izostaviti
 
-	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password");
 
 ```php
 
