@@ -19,8 +19,8 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     public function config()
     {
         return array(
-            'certificatePath' => "./tests/demo2.pfx",
-            'password'        => "TNTStudi0"
+            'certificatePath' => "./path/to/demo.pfx",
+            'password'        => "password"
         );
     }
 
@@ -31,18 +31,6 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
             ->setConstructorArgs($this->config())
             ->getMock();
         return $mock;
-    }
-
-    public function testReadCertificateFromDisk()
-    {
-    	$fis = $this->mockFiskalizacijaClass();
-        $fis->expects($this->once())
-            ->method('readCertificateFromDisk')
-            ->will($this->returnValue(true));
-
-    	$pathToDemoCert = "./tests/demo.pfx";
-    	$res = $fis->readCertificateFromDisk($pathToDemoCert);
-    	$this->assertTrue($res != false);
     }
 
     public function testSetCertificate()
@@ -196,5 +184,17 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $businessAreaRequest = new BusinessAreaRequest($businessArea);
 
         return $businessAreaRequest;
+    }
+    
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Ne mogu procitati certifikat sa lokacije:
+     */
+    public function testReadCertificateFromDiskException()
+    {
+        $fis = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
+            ->setMethods(null)
+            ->setConstructorArgs($this->config())
+            ->getMock();
     }
 }

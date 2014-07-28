@@ -17,9 +17,13 @@ class Fiskalizacija {
 	//privatni kljuc iz certifikata
 	private $pk;
 	public $certificate;
+	private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
 
-	public function __construct($path, $pass)
+	public function __construct($path, $pass, $demo = false)
 	{
+		if($demo == true) {
+			$this->url = "https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest";
+		}
 		$this->setCertificate($path, $pass);
 		$this->privateKeyResource = openssl_pkey_get_private($this->certificate['pkey'], $pass);
 		$this->publicCertificateData = openssl_x509_parse($this->certificate['cert']);
@@ -132,7 +136,7 @@ class Fiskalizacija {
 		$ch = curl_init();
 
 		$options = array(
-		    CURLOPT_URL => 'https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest',
+		    CURLOPT_URL => $this->url,
 		    CURLOPT_CONNECTTIMEOUT => 5,
 		    CURLOPT_TIMEOUT => 5,
 		    CURLOPT_RETURNTRANSFER => true,
