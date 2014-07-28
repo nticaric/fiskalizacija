@@ -29,7 +29,7 @@ class Fiskalizacija {
 
 	public function getPrivateKey()
 	{
-		return $this->certificate['pkey']:
+		return $this->certificate['pkey'];
 	}
 
 	public function setCertificate($path, $pass)
