@@ -5,6 +5,16 @@ Fiskalizacija
 PHP API za fiskalizaciju računa
 
 ###Primjer računa:
+
+Ukoliko se radi o testnoj okolini sa demo certifikatom, treci parametar konustruktora je 
+potrebno postaviti u `true`
+
+	$fis = new Fiskalizacija("./tests/demo.pfx", "password", true);
+
+Ukoliko se radi o produkcijkoj okolini, treci parametar se moze izostaviti
+
+	$fis = new Fiskalizacija("./tests/demo.pfx", "password");
+
 ```php
 
 <?php
