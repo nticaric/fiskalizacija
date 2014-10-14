@@ -186,11 +186,13 @@ class Bill
         /*********************************************/
 
         /*********** PNP *****************************/
-        $writer->startElementNs($ns, 'Pnp', null);
+        if (!empty($this->listPNP)) {
+            $writer->startElementNs($ns, 'Pnp', null);
             foreach ($this->listPNP as $pnp) {
                 $writer->writeRaw($pnp->toXML());
             }
-        $writer->endElement();
+            $writer->endElement();
+        }
         /*********************************************/
 
         /*********** Ostali Porez ********************/
