@@ -1,6 +1,7 @@
 Fiskalizacija
 =============
 [![Build Status](https://travis-ci.org/nticaric/fiskalizacija.svg?branch=master)](https://travis-ci.org/nticaric/fiskalizacija)
+[![Total Downloads](https://img.shields.io/packagist/dt/nticaric/fiskalizacija.svg?style=flat)](https://packagist.org/packages/nticaric/fiskalizacija)
 
 PHP API za fiskalizaciju računa
 
