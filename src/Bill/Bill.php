@@ -205,9 +205,9 @@ class Bill
         }
         /*********************************************/
 
-        $writer->writeElementNs($ns, 'IznosOslobPdv', null, number_format($this->taxFreeValuePdv, 2));
-        $writer->writeElementNs($ns, 'IznosMarza', null, number_format($this->marginForTaxRate, 2));
-        $writer->writeElementNs($ns, 'IznosNePodlOpor', null, number_format($this->taxFreeValue, 2));
+        $writer->writeElementNs($ns, 'IznosOslobPdv', null, number_format($this->taxFreeValuePdv, 2, '.', ''));
+        $writer->writeElementNs($ns, 'IznosMarza', null, number_format($this->marginForTaxRate, 2, '.', ''));
+        $writer->writeElementNs($ns, 'IznosNePodlOpor', null, number_format($this->taxFreeValue, 2, '.', ''));
 
         /*********** Naknada *************************/
         if (!empty($this->refund)) {
@@ -219,7 +219,7 @@ class Bill
         }
         /*********************************************/
 
-        $writer->writeElementNs($ns, 'IznosUkupno', null, number_format($this->totalValue, 2));
+        $writer->writeElementNs($ns, 'IznosUkupno', null, number_format($this->totalValue, 2, '.', ''));
         $writer->writeElementNs($ns, 'NacinPlac', null, $this->typeOfPaying);
         $writer->writeElementNs($ns, 'OibOper', null, $this->oibOperative);
         $writer->writeElementNs($ns, 'ZastKod', null, $this->securityCode);
