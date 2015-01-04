@@ -7,9 +7,16 @@ class AddressData
 
 	public $address;
 
+	public $otherTypeOfBusinessArea;
+
 	public function setAddress(Address $address)
 	{
 		$this->address = $address;
+	}
+
+	public function setOtherTypeOfBusinessArea($otherTypeOfBusinessArea)
+	{
+		$this->otherTypeOfBusinessArea = $otherTypeOfBusinessArea;
 	}
 
 	public function toXML()
@@ -22,7 +29,15 @@ class AddressData
     	$writer->setIndent(true);
     	$writer->setIndentString("    ");
 		$writer->startElementNs($ns, 'AdresniPodatak', null);
-		$writer->writeRaw($this->address->toXML());
+
+		if($this->address) {
+			$writer->writeRaw($this->address->toXML());
+		}
+
+		if($this->otherTypeOfBusinessArea) {
+			$writer->writeElementNs($ns, 'OstaliTipoviPP', null, $this->otherTypeOfBusinessArea);
+		}
+
 		$writer->endElement();
 
 		return $writer->outputMemory();
