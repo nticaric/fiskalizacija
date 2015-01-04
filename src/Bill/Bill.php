@@ -178,11 +178,13 @@ class Bill
         $writer->writeRaw($this->billNumber->toXML());
 
         /*********** PDV *****************************/
-        $writer->startElementNs($ns, 'Pdv', null);
-            foreach ($this->listPDV as $pdv) {
-                $writer->writeRaw($pdv->toXML());
-            }
-        $writer->endElement();
+        if (!empty($this->listPDV)) {
+            $writer->startElementNs($ns, 'Pdv', null);
+                foreach ($this->listPDV as $pdv) {
+                    $writer->writeRaw($pdv->toXML());
+                }
+            $writer->endElement();
+        }
         /*********************************************/
 
         /*********** PNP *****************************/
