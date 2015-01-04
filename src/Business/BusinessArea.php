@@ -65,8 +65,11 @@ class BusinessArea
         $writer->startElementNs($ns, 'PoslovniProstor', null);
         $writer->writeElementNs($ns, 'Oib', null, $this->oib);
         $writer->writeElementNs($ns, 'OznPoslProstora', null, $this->noteOfBusinessArea);
-        //AdresniPodatak
-        $writer->writeRaw($this->addressData->toXML());
+
+        if($this->addressData) {
+            $writer->writeRaw($this->addressData->toXML());
+        }
+
         $writer->writeElementNs($ns, 'RadnoVrijeme', null, $this->workingTime);
         $writer->writeElementNs($ns, 'DatumPocetkaPrimjene', null, $this->dateOfusage);
         
@@ -74,7 +77,10 @@ class BusinessArea
             $writer->writeElementNs($ns, 'OznakaZatvaranja', null, $this->noteOfClosing);
         }
         
-        $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
+        if($this->specificPurpose != NULL) {
+            $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
+        }
+
         $writer->endElement();
         
         return $writer->outputMemory();

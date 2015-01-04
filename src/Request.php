@@ -31,7 +31,7 @@ class Request {
         $writer->writeAttribute('Id', uniqid());
         $writer->startElementNs($ns, 'Zaglavlje', null);
         $writer->writeElementNs($ns, 'IdPoruke', null, $this->generateUUID());
-        $writer->writeElementNs($ns, 'DatumVrijeme', null, \Carbon\Carbon::now()->format('d.m.Y\Th:i:s'));
+        $writer->writeElementNs($ns, 'DatumVrijeme', null, \Carbon\Carbon::now()->format('d.m.Y\TH:i:s'));
         $writer->endElement();
 
         $writer->writeRaw($this->request->toXML());

@@ -127,3 +127,27 @@ $soapMessage = $fis->signXML($businessAreaRequest->toXML());
 $res = $fis->sendSoap($soapMessage);
 var_dump($res);
 ```
+
+###Primjer testne poruke:
+
+```php
+
+<?php
+
+use Nticaric\Fiskalizacija\Fiskalizacija;
+use Nticaric\Fiskalizacija\Test\Test;
+use Nticaric\Fiskalizacija\Test\TestRequest;
+use Carbon\Carbon;
+
+$test = new Test();
+$test->setMessage("testna poruka");
+
+$testRequest = new TestRequest($test);
+
+$fis = new Fiskalizacija("./path/to/demo.pfx", "password", true);
+
+$soapMessage = $fis->plainXML($testRequest->toXML());
+
+$res = $fis->sendSoap($soapMessage);
+var_dump($res);
+```
