@@ -134,6 +134,27 @@ class Fiskalizacija {
 		return $envelope->saveXML();
 	}
 
+	public function plainXML($XMLRequest)
+	{
+		$XMLRequestDOMDoc = new DOMDocument();
+		$XMLRequestDOMDoc->loadXML($XMLRequest);
+
+		$envelope = new DOMDocument();
+
+		$envelope->loadXML('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		    <soapenv:Body></soapenv:Body>
+		</soapenv:Envelope>');
+
+		$envelope->encoding = 'UTF-8';
+		$envelope->version = '1.0';
+		$XMLRequestType = $XMLRequestDOMDoc->documentElement->localName;
+		$XMLRequestTypeNode = $XMLRequestDOMDoc->getElementsByTagName($XMLRequestType)->item(0);
+		$XMLRequestTypeNode = $envelope->importNode($XMLRequestTypeNode, true);
+
+		$envelope->getElementsByTagName('Body')->item(0)->appendChild($XMLRequestTypeNode);
+		return $envelope->saveXML();
+	}
+
 	public function sendSoap($payload)
 	{
 		$ch = curl_init();
