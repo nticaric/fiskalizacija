@@ -29,7 +29,7 @@ use Nticaric\Fiskalizacija\Bill\BillRequest;
 
 $billNumber = new BillNumber(1, "ODV1", "1");
 
-$istPdv = array();
+$listPdv = array();
 $listPdv[] = new TaxRate(25.1, 400.1, 20.1, null);
 $listPdv[] = new TaxRate(10.1, 500.1, 15.444, null);
 
