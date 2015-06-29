@@ -28,7 +28,9 @@ class Address
         $writer->setIndentString("    ");
         $writer->startElementNs($ns, 'Adresa', null);
         $writer->writeElementNs($ns, 'Ulica', null, $this->street);
-        $writer->writeElementNs($ns, 'KucniBroj', null, $this->houseNumber);
+        if($this->houseNumber != null) {
+            $writer->writeElementNs($ns, 'KucniBroj', null, $this->houseNumber);
+        }
         if($this->extrahouseNumber != null) {
             $writer->writeElementNs($ns, 'KucniBrojDodatak', null, $this->extrahouseNumber);
         }
