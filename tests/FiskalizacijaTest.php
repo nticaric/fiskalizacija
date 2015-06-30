@@ -1,18 +1,15 @@
 <?php
 
-use Nticaric\Fiskalizacija\Fiskalizacija;
+use Carbon\Carbon;
+use Nticaric\Fiskalizacija\Bill\Bill;
+use Nticaric\Fiskalizacija\Bill\BillNumber;
+use Nticaric\Fiskalizacija\Bill\BillRequest;
+use Nticaric\Fiskalizacija\Bill\Refund;
+use Nticaric\Fiskalizacija\Bill\TaxRate;
 use Nticaric\Fiskalizacija\Business\Address;
 use Nticaric\Fiskalizacija\Business\AddressData;
 use Nticaric\Fiskalizacija\Business\BusinessArea;
 use Nticaric\Fiskalizacija\Business\BusinessAreaRequest;
-
-use Nticaric\Fiskalizacija\Bill\Bill;
-use Nticaric\Fiskalizacija\Bill\Refund;
-use Nticaric\Fiskalizacija\Bill\BillNumber;
-use Nticaric\Fiskalizacija\Bill\TaxRate;
-use Nticaric\Fiskalizacija\Bill\BillRequest;
-
-use Carbon\Carbon;
 
 class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,33 +17,33 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             'certificatePath' => "./path/to/demo.pfx",
-            'password'        => "password"
+            'password' => "password",
         );
     }
 
     public function mockFiskalizacijaClass()
     {
         $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->setMethods(array('readCertificateFromDisk', 'signXML', 'sendSoap'))
-            ->setConstructorArgs($this->config())
-            ->getMock();
+                     ->setMethods(array('readCertificateFromDisk', 'signXML', 'sendSoap'))
+                     ->setConstructorArgs($this->config())
+                     ->getMock();
         return $mock;
     }
 
     public function testSetCertificate()
     {
-    	$fis = $this->mockFiskalizacijaClass();
-        $fis->certificate = "certificate";  
-    	$pathToDemoCert = "./tests/demo.pfx";
-    	$fis->setCertificate($pathToDemoCert, "password");
-    	$this->assertNotNull($fis->certificate, 'Certificate must not be null');
+        $fis = $this->mockFiskalizacijaClass();
+        $fis->certificate = "certificate";
+        $pathToDemoCert = "./tests/demo.pfx";
+        $fis->setCertificate($pathToDemoCert, "password");
+        $this->assertNotNull($fis->certificate, 'Certificate must not be null');
     }
 
     public function testSetCertificateWithWrongpassword()
     {
         $config = $this->config();
-    	$fis = $this->mockFiskalizacijaClass();
-    	$this->assertNull($fis->certificate, 'Certificate must not be null');
+        $fis = $this->mockFiskalizacijaClass();
+        $this->assertNull($fis->certificate, 'Certificate must not be null');
     }
 
     public function testSignXML()
@@ -106,24 +103,23 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     public function setBillRequest()
     {
         $refund = new Refund("Naziv naknade", 5.44);
-                
+
         $billNumber = new BillNumber(1, "ODV1", "1");
-        
+
         $istPdv = array();
         $listPdv[] = new TaxRate(25.1, 400.1, 20.1, null);
         $listPdv[] = new TaxRate(10.1, 500.1, 15.444, null);
-        
+
         $listPnp = array();
         $listPnp[] = new TaxRate(30.1, 100.1, 10.1, null);
         $listPnp[] = new TaxRate(20.1, 200.1, 20.1, null);
-        
+
         $listOtherTaxRate = array();
         $listOtherTaxRate[] = new TaxRate(40.1, 453.3, 12.1, "Naziv1");
         $listOtherTaxRate[] = new TaxRate(27.1, 445.1, 50.1, "Naziv2");
-        
-        
+
         $bill = new Bill();
-        
+
         $bill->setOib("32314900695");
         $bill->setHavePDV(true);
         $bill->setDateTime("15.07.2014T20:00:00");
@@ -143,11 +139,11 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $bill->setSecurityCode(
             $bill->securityCode(
                 "private_key",
-                $bill->oib, 
-                $bill->dateTime, 
-                $billNumber->numberNoteBill, 
-                $billNumber->noteOfBusinessArea, 
-                $billNumber->noteOfExcangeDevice, 
+                $bill->oib,
+                $bill->dateTime,
+                $billNumber->numberNoteBill,
+                $billNumber->noteOfBusinessArea,
+                $billNumber->noteOfExcangeDevice,
                 $bill->totalValue
             )
         );
@@ -179,13 +175,13 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         //$businessArea->setNoteOfClosing("Z");
         $businessArea->setOib("32314900695");
         $businessArea->setSpecificPurpose("spec namjena");
-        
+
         $businessArea->setWorkingTime("Pon:08-11h Uto:15-17");
         $businessAreaRequest = new BusinessAreaRequest($businessArea);
 
         return $businessAreaRequest;
     }
-    
+
     /**
      * @expectedException Exception
      * @expectedExceptionMessage Ne mogu procitati certifikat sa lokacije:
@@ -193,8 +189,8 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
     public function testReadCertificateFromDiskException()
     {
         $fis = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->setMethods(null)
-            ->setConstructorArgs($this->config())
-            ->getMock();
+                    ->setMethods(null)
+                    ->setConstructorArgs($this->config())
+                    ->getMock();
     }
 }

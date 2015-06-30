@@ -6,7 +6,7 @@ class BusinessAreaRequest extends Request
 {
     public function __construct(BusinessArea $businessArea)
     {
-        $this->request     = $businessArea;
+        $this->request = $businessArea;
         $this->requestName = 'PoslovniProstorZahtjev';
     }
 }

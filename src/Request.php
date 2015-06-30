@@ -2,12 +2,13 @@
 
 use XMLWriter;
 
-class Request {
+class Request
+{
 
     protected $requestName;
     protected $request;
 
-    public function generateUUID() 
+    public function generateUUID()
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -24,7 +25,7 @@ class Request {
 
         $writer = new XMLWriter();
         $writer->openMemory();
- 
+
         $writer->setIndent(true);
         $writer->setIndentString("    ");
         $writer->startElementNs($ns, $this->requestName, 'http://www.apis-it.hr/fin/2012/types/f73');
@@ -36,7 +37,7 @@ class Request {
 
         $writer->writeRaw($this->request->toXML());
         $writer->endElement();
-        
+
         return $writer->outputMemory();
     }
 }

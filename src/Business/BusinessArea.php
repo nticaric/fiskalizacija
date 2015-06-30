@@ -4,17 +4,17 @@ use XMLWriter;
 
 class BusinessArea
 {
-    
+
     public $oib;
-    
+
     public $noteOfBusinessArea;
-    
+
     public $addressData;
-    
+
     public $workingTime;
-    
+
     public $dateOfusage;
-    
+
     public $noteOfClosing = null;
 
     public $specificPurpose;
@@ -24,7 +24,8 @@ class BusinessArea
         $this->addressData = $addressData;
     }
 
-    public function setDateOfusage($dateOfusage) {
+    public function setDateOfusage($dateOfusage)
+    {
         $this->dateOfusage = $dateOfusage;
     }
 
@@ -59,30 +60,30 @@ class BusinessArea
 
         $writer = new XMLWriter();
         $writer->openMemory();
- 
+
         $writer->setIndent(true);
         $writer->setIndentString("    ");
         $writer->startElementNs($ns, 'PoslovniProstor', null);
         $writer->writeElementNs($ns, 'Oib', null, $this->oib);
         $writer->writeElementNs($ns, 'OznPoslProstora', null, $this->noteOfBusinessArea);
 
-        if($this->addressData) {
+        if ($this->addressData) {
             $writer->writeRaw($this->addressData->toXML());
         }
 
         $writer->writeElementNs($ns, 'RadnoVrijeme', null, $this->workingTime);
         $writer->writeElementNs($ns, 'DatumPocetkaPrimjene', null, $this->dateOfusage);
-        
-        if($this->noteOfClosing != NULL) {
+
+        if ($this->noteOfClosing != null) {
             $writer->writeElementNs($ns, 'OznakaZatvaranja', null, $this->noteOfClosing);
         }
-        
-        if($this->specificPurpose != NULL) {
+
+        if ($this->specificPurpose != null) {
             $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
         }
 
         $writer->endElement();
-        
+
         return $writer->outputMemory();
     }
 
