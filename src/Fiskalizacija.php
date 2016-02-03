@@ -16,11 +16,12 @@ use Exception;
 class Fiskalizacija
 {
 
-    private $uuid;
     public $certificate;
+    private $uuid;
+    private $security;
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
 
-    public function __construct($path, $pass, $demo = false)
+    public function __construct($path, $pass, $security = 'SSL', $demo = false)
     {
         if ($demo == true) {
             $this->url = "https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest";
@@ -28,11 +29,7 @@ class Fiskalizacija
         $this->setCertificate($path, $pass);
         $this->privateKeyResource = openssl_pkey_get_private($this->certificate['pkey'], $pass);
         $this->publicCertificateData = openssl_x509_parse($this->certificate['cert']);
-    }
-
-    public function getPrivateKey()
-    {
-        return $this->certificate['pkey'];
+        $this->security = $security;
     }
 
     public function setCertificate($path, $pass)
@@ -49,6 +46,11 @@ class Fiskalizacija
                 $path, 1);
         }
         return $cert;
+    }
+
+    public function getPrivateKey()
+    {
+        return $this->certificate['pkey'];
     }
 
     public function signXML($XMLRequest)
@@ -175,7 +177,21 @@ class Fiskalizacija
             //CURLOPT_CAINFO => './tests/democacert.cer.pem',
         );
 
+        switch ($this->security) {
+            case 'SSL':
+                break;
+            case 'TLS':
+                curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+                curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    'Treći parametar konstruktora klase Fiskalizacija mora biti SSL ili TLS!'
+                );
+        }
+
         curl_setopt_array($ch, $options);
+
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response = curl_exec($ch);
 
