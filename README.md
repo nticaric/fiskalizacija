@@ -7,14 +7,20 @@ PHP API za fiskalizaciju računa
 
 ###Primjer računa:
 
-Ukoliko se radi o testnoj okolini sa demo certifikatom, treci parametar konustruktora je 
+Ukoliko se radi o testnoj okolini sa demo certifikatom, cetvrti parametar konustruktora je
 potrebno postaviti u `true`
 
-	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password", true);
+	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password", "security" , true);
 
-Ukoliko se radi o produkcijkoj okolini, treci parametar se moze izostaviti
+Ukoliko se radi o produkcijkoj okolini, cetvrti parametar se moze izostaviti
 
 	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password");
+
+Od 27. listopada 2015. napušta se SSL protokol pri komunikaciji fiskalnih blagajni sa serverima a prelazi se na TLS protokol.
+Kao treci parametar konstruktora moze se postaviti SSL ili TLS, a ukoliko se treci parametar izostavi koristiti ce se SSL kao default parametar.
+
+    $fis = new Fiskalizacija("./path/to/certificate.pfx", "password", "TLS", true);
+
 
 ```php
 
