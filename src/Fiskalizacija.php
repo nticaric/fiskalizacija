@@ -181,8 +181,7 @@ class Fiskalizacija
             case 'SSL':
                 break;
             case 'TLS':
-                curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
-                curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
+                curl_setopt($ch, CURLOPT_SSLVERSION, 6);
                 break;
             default:
                 throw new \InvalidArgumentException(
