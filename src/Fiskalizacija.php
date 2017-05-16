@@ -17,7 +17,6 @@ class Fiskalizacija
 {
 
     public $certificate;
-    private $uuid;
     private $security;
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
 
