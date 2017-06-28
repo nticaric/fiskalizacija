@@ -5,7 +5,7 @@ Fiskalizacija
 
 PHP API za fiskalizaciju računa
 
-###Primjer računa:
+### Primjer računa:
 
 Ukoliko se radi o testnoj okolini sa demo certifikatom, cetvrti parametar konustruktora je
 potrebno postaviti u `true`
@@ -89,7 +89,7 @@ $res = $fis->sendSoap($soapMessage);
 var_dump($res);
 ```
 
-###Primjer poslovnog prostora:
+### Primjer poslovnog prostora:
 
 ```php
 
@@ -134,7 +134,7 @@ $res = $fis->sendSoap($soapMessage);
 var_dump($res);
 ```
 
-###Primjer testne poruke:
+### Primjer testne poruke:
 
 ```php
 
