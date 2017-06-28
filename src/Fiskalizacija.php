@@ -17,7 +17,6 @@ class Fiskalizacija
 {
 
     public $certificate;
-    private $uuid;
     private $security;
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
 
@@ -191,8 +190,8 @@ class Fiskalizacija
 
         curl_setopt_array($ch, $options);
 
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($response) {
             curl_close($ch);
@@ -206,12 +205,12 @@ class Fiskalizacija
 
     public function parseResponse($response, $code = 4)
     {
-        $DOMResponse = new DOMDocument();
-        $DOMResponse->loadXML($response);
-
-        if ($code === 200 || $code == 0) {
+        if ($code === 200) {
             return $response;
         } else {
+            $DOMResponse = new DOMDocument();
+            $DOMResponse->loadXML($response);
+
             $SifraGreske = $DOMResponse->getElementsByTagName('SifraGreske')->item(0);
             $PorukaGreske = $DOMResponse->getElementsByTagName('PorukaGreske')->item(0);
 
