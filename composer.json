@@ -2,7 +2,7 @@
     "name": "nticaric/fiskalizacija",
     "description": "PHP API za fiskalizaciju računa",
     "homepage": "http://github.com/nticaric/fiskalizacija",
-    "license": "GNU General Public License",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
