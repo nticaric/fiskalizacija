@@ -10,37 +10,37 @@ class Bill
     public $havePDV;
 
     public $dateTime;
-    
+
     public $noteOfOrder = "N";
-    
+
     public $billNumber;
-    
+
     public $listPDV;
-    
+
     public $listPNP;
-    
+
     public $listOtherTaxRate;
-    
+
     public $taxFreeValuePdv;
 
     public $marginForTaxRate;
-    
+
     public $taxFreeValue;
-    
-    public $refund = array();
-    
+
+    public $refund = [];
+
     public $totalValue;
-    
+
     public $typeOfPaying;
 
     public $oibOperative;
-    
+
     public $securityCode;
-    
+
     public $noteOfRedelivary = false;
-    
+
     public $noteOfParagonBill;
-    
+
     public $specificPurpose;
 
     public function setOib($oib)
@@ -88,7 +88,7 @@ class Bill
         $this->taxFreeValuePdv = $taxFreeValuePdv;
     }
 
-    public function setMarginForTaxRate($marginForTaxRate) 
+    public function setMarginForTaxRate($marginForTaxRate)
     {
         $this->marginForTaxRate = $marginForTaxRate;
     }
@@ -149,15 +149,23 @@ class Bill
      * @param  [type] $uir  ukupni iznos računa
      * @return [type]       md5 hash
      */
-    public function securityCode($pkey, $oib, $dt, $bor, $opp, $onu, $uir) {
-        $medjurezultat  = $pkey;
+    public function securityCode($pkey, $oib, $dt, $bor, $opp, $onu, $uir)
+    {
+        $medjurezultat = "";
         $medjurezultat .= $oib;
         $medjurezultat .= $dt;
         $medjurezultat .= $opp;
         $medjurezultat .= $bor;
         $medjurezultat .= $onu;
         $medjurezultat .= $uir;
-        return $this->securityCode = md5($medjurezultat);
+
+        $zastKodSignature = null;
+
+        if (!openssl_sign($medjurezultat, $zastKodSignature, $pkey, OPENSSL_ALGO_SHA1)) {
+            throw new \Exception('Error creating security code');
+        }
+
+        return $this->securityCode = md5($zastKodSignature);
     }
 
     public function toXML()
@@ -166,7 +174,7 @@ class Bill
 
         $writer = new XMLWriter();
         $writer->openMemory();
-    
+
         $writer->setIndent(true);
         $writer->setIndentString("    ");
         $writer->startElementNs($ns, 'Racun', null);
@@ -180,9 +188,9 @@ class Bill
         /*********** PDV *****************************/
         if (!empty($this->listPDV)) {
             $writer->startElementNs($ns, 'Pdv', null);
-                foreach ($this->listPDV as $pdv) {
-                    $writer->writeRaw($pdv->toXML());
-                }
+            foreach ($this->listPDV as $pdv) {
+                $writer->writeRaw($pdv->toXML());
+            }
             $writer->endElement();
         }
         /*********************************************/
@@ -200,9 +208,9 @@ class Bill
         /*********** Ostali Porez ********************/
         if (!empty($this->listOtherTaxRate)) {
             $writer->startElementNs($ns, 'OstaliPor', null);
-                foreach ($this->listOtherTaxRate as $ostali) {
-                    $writer->writeRaw($ostali->toXML());
-                }
+            foreach ($this->listOtherTaxRate as $ostali) {
+                $writer->writeRaw($ostali->toXML());
+            }
             $writer->endElement();
         }
         /*********************************************/
@@ -214,9 +222,9 @@ class Bill
         /*********** Naknada *************************/
         if (!empty($this->refund)) {
             $writer->startElementNs($ns, 'Naknade', null);
-                foreach ($this->refund as $naknada) {
-                    $writer->writeRaw($naknada->toXML());
-                }
+            foreach ($this->refund as $naknada) {
+                $writer->writeRaw($naknada->toXML());
+            }
             $writer->endElement();
         }
         /*********************************************/
@@ -227,10 +235,13 @@ class Bill
         $writer->writeElementNs($ns, 'ZastKod', null, $this->securityCode);
         $writer->writeElementNs($ns, 'NakDost', null, $this->noteOfRedelivary ? "true" : "false");
 
-        if($this->noteOfParagonBill)
+        if ($this->noteOfParagonBill) {
             $writer->writeElementNs($ns, 'ParagonBrRac', null, $this->noteOfParagonBill);
-        if($this->specificPurpose)
-        $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
+        }
+
+        if ($this->specificPurpose) {
+            $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
+        }
 
         $writer->endElement();
 
