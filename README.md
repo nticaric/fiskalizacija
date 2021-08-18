@@ -3,21 +3,22 @@ Fiskalizacija
 [![Build Status](https://travis-ci.org/nticaric/fiskalizacija.svg?branch=master)](https://travis-ci.org/nticaric/fiskalizacija)
 [![Total Downloads](https://img.shields.io/packagist/dt/nticaric/fiskalizacija.svg)](https://packagist.org/packages/nticaric/fiskalizacija)
 
-PHP API za fiskalizaciju računa
+PHP API za fiskalizaciju računa u Hrvatskoj
 
 ### Primjer računa:
 
-Ukoliko se radi o testnoj okolini sa demo certifikatom, cetvrti parametar konustruktora je
+Ako se radi o testnoj okolini s demo certifikatom, četvrti parametar konstruktora je
 potrebno postaviti u `true`
 
 	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password", "security" , true);
 
-Ukoliko se radi o produkcijkoj okolini, cetvrti parametar se moze izostaviti
+Ako se radi o produkcijskoj okolini, četvrti parametar se treba postaviti na `false` 
+ili se može izostaviti
 
 	$fis = new Fiskalizacija("./path/to/certificate.pfx", "password");
 
-Od 27. listopada 2015. napušta se SSL protokol pri komunikaciji fiskalnih blagajni sa serverima a prelazi se na TLS protokol.
-Kao treci parametar konstruktora moze se postaviti SSL ili TLS, a ukoliko se treci parametar izostavi koristiti ce se SSL kao default parametar.
+Od 27. listopada 2015. napušta se SSL protokol pri komunikaciji fiskalnih blagajni s poslužiteljima i prelazi se na TLS protokol.
+Kao treći parametar konstruktora treba se postaviti `TLS` umjesto `SSL`. Ako bi se treći parametar izostavio, koristio bi se `SSL` kao default protokol.
 
     $fis = new Fiskalizacija("./path/to/certificate.pfx", "password", "TLS", true);
 
