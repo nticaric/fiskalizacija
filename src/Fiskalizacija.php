@@ -92,8 +92,7 @@ class Fiskalizacija
 
         $SignedInfoNode = $XMLRequestDOMDoc->getElementsByTagName('SignedInfo')->item(0);
 
-        $X509Issuer = $this->publicCertificateData['issuer'];
-        $X509IssuerName = sprintf('OU=%s,O=%s,C=%s', $X509Issuer['OU'], $X509Issuer['O'], $X509Issuer['C']);
+        $X509IssuerName = $this->getIssuerName();
         $X509IssuerSerial = $this->publicCertificateData['serialNumber'];
 
         $publicCertificatePureString = str_replace('-----BEGIN CERTIFICATE-----', '', $this->certificate['cert']);
@@ -221,6 +220,19 @@ class Fiskalizacija
             }
         }
 
+    }
+
+    private function getIssuerName(): string
+    {
+        $X509Issuer = $this->publicCertificateData['issuer'];
+        return implode(
+            ',',
+            array_map(
+                fn (string $key, string $value) => sprintf('%s=%s', $key, $value),
+                array_keys($X509Issuer),
+                $X509Issuer
+            )
+        );
     }
 
 }
