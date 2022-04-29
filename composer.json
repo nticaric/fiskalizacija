@@ -4,13 +4,20 @@
     "homepage": "http://github.com/nticaric/fiskalizacija",
     "license": "MIT",
     "type": "library",
-    "authors": [{
-        "name": "Nenad Ticaric",
-        "email": "nticaric@gmail.com"
-    }],
+    "authors": [
+        {
+            "name": "Nenad Ticaric",
+            "email": "nticaric@gmail.com"
+        },
+        {
+            "name": "Goran Hrženjak",
+            "email": "goran.hrzenjak@bornfight.com"
+        }
+    ],
     "require": {
-        "php": ">=5.3.0",
-        "nesbot/carbon": "~1.0"
+        "php": ">=7.4",
+        "nesbot/carbon": "~1.0",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "mockery/mockery": "~0.9",
