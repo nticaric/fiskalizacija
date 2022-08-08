@@ -1,8 +1,9 @@
 <?php
 
 use Nticaric\Fiskalizacija\Bill\TaxRate;
+use PHPUnit\Framework\TestCase;
 
-class TaxRateTest extends \PHPUnit_Framework_TestCase
+class TaxRateTest extends TestCase
 {
     public function testTaxRateClass()
     {

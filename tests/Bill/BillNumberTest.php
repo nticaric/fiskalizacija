@@ -1,8 +1,9 @@
 <?php
 
 use Nticaric\Fiskalizacija\Bill\BillNumber;
+use PHPUnit\Framework\TestCase;
 
-class BillNumberTest extends \PHPUnit_Framework_TestCase
+class BillNumberTest extends TestCase
 {
     public function testBillNumberClass()
     {

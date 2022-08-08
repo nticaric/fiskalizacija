@@ -5,3 +5,5 @@ tests/democacert.cer
 tests/democacert.cer.pem
 coverage
 build/logs
+.phpunit.result.cache
+.idea

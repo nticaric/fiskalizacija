@@ -6,8 +6,9 @@ use Nticaric\Fiskalizacija\Bill\BillRequest;
 use Nticaric\Fiskalizacija\Bill\Refund;
 use Nticaric\Fiskalizacija\Bill\TaxRate;
 use Nticaric\Fiskalizacija\Fiskalizacija;
+use PHPUnit\Framework\TestCase;
 
-class BillRequestTest extends \PHPUnit_Framework_TestCase
+class BillRequestTest extends TestCase
 {
     public function testBillRequestClass()
     {
@@ -76,8 +77,8 @@ class BillRequestTest extends \PHPUnit_Framework_TestCase
         $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
             ->setMethods(['readCertificateFromDisk', 'signXML', 'sendSoap', 'getPrivateKey'])
             ->setConstructorArgs([
-                'certificatePath' => "",
-                'password'        => "",
+                'path' => "",
+                'pass'        => "",
             ])
             ->getMock();
 
