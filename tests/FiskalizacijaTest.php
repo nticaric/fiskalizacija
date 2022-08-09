@@ -11,21 +11,24 @@ use Nticaric\Fiskalizacija\Business\AddressData;
 use Nticaric\Fiskalizacija\Business\BusinessArea;
 use Nticaric\Fiskalizacija\Business\BusinessAreaRequest;
 use Nticaric\Fiskalizacija\Fiskalizacija;
+use PHPUnit\Framework\TestCase;
 
-class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
+class FiskalizacijaTest extends TestCase
 {
     public function config()
     {
         return [
-            'certificatePath' => "./path/to/demo.pfx",
-            'password'        => "password",
+            'path' => "./tests/demo.pfx",
+            'pass' => "password",
+            'security' => 'TLS',
+            'demo' => true
         ];
     }
 
     public function mockFiskalizacijaClass()
     {
         $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->setMethods(['readCertificateFromDisk', 'signXML', 'sendSoap', 'getPrivateKey'])
+            ->onlyMethods([ 'signXML', 'sendSoap', 'getPrivateKey'])
             ->setConstructorArgs($this->config())
             ->getMock();
 
@@ -44,52 +47,12 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCertificate()
     {
+        $pathToDemoCert   = "./tests/demo.pfx";
         $fis              = $this->mockFiskalizacijaClass();
         $fis->certificate = "certificate";
-        $pathToDemoCert   = "./tests/demo.pfx";
+
         $fis->setCertificate($pathToDemoCert, "password");
         $this->assertNotNull($fis->certificate, 'Certificate must not be null');
-    }
-
-    public function testSetCertificateWithWrongpassword()
-    {
-        $config = $this->config();
-        $fis    = $this->mockFiskalizacijaClass();
-        $this->assertNull($fis->certificate, 'Certificate must not be null');
-    }
-
-    public function testSignXML()
-    {
-        $config              = $this->config();
-        $businessAreaRequest = $this->setBusinessAreaRequest();
-
-        $fis = $this->mockFiskalizacijaClass();
-        $fis->expects($this->once())
-            ->method('signXML')
-            ->will($this->returnArgument(0));
-
-        $soapMessage = $fis->signXML($businessAreaRequest->toXML());
-
-        $this->assertNotNull($soapMessage);
-
-    }
-
-    public function testSendSoapBusinessRequest()
-    {
-        $config              = $this->config();
-        $businessAreaRequest = $this->setBusinessAreaRequest();
-
-        $fis = $this->mockFiskalizacijaClass();
-        $fis->expects($this->once())
-            ->method('signXML')
-            ->will($this->returnArgument(0));
-        $fis->expects($this->once())
-            ->method('sendSoap')
-            ->will($this->returnValue('PoslovniProstorOdgovor'));
-        $soapMessage = $fis->signXML($businessAreaRequest->toXML());
-
-        $res = $fis->sendSoap($soapMessage);
-        $this->assertContains('PoslovniProstorOdgovor', $res);
     }
 
     public function testSendSoapBillRequest()
@@ -109,7 +72,7 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
         $soapMessage = $fis->signXML($billRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
-        $this->assertContains('RacunOdgovor', $res);
+        $this->assertEquals('RacunOdgovor', $res);
     }
 
     public function setBillRequest()
@@ -165,46 +128,5 @@ class FiskalizacijaTest extends \PHPUnit_Framework_TestCase
 
         $billRequest = new BillRequest($bill);
         return $billRequest;
-    }
-
-    public function setBusinessAreaRequest()
-    {
-        $address              = new Address;
-        $address->street      = "Sv. Mateja";
-        $address->houseNumber = "19";
-        $address->zipCode     = "10000";
-        $address->settlement  = "Zagreb";
-        $address->city        = "Zagreb";
-
-        $addressData = new AddressData;
-        $addressData->setAddress($address);
-
-        $businessArea = new BusinessArea;
-        $businessArea->setAddressData($addressData);
-
-        $date = Carbon::now()->format("d.m.Y");
-        $businessArea->setDateOfusage($date);
-
-        $businessArea->setNoteOfBusinessArea("ODV1");
-        //$businessArea->setNoteOfClosing("Z");
-        $businessArea->setOib("32314900695");
-        $businessArea->setSpecificPurpose("spec namjena");
-
-        $businessArea->setWorkingTime("Pon:08-11h Uto:15-17");
-        $businessAreaRequest = new BusinessAreaRequest($businessArea);
-
-        return $businessAreaRequest;
-    }
-
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Ne mogu procitati certifikat sa lokacije:
-     */
-    public function testReadCertificateFromDiskException()
-    {
-        $fis = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->setMethods(null)
-            ->setConstructorArgs($this->config())
-            ->getMock();
     }
 }

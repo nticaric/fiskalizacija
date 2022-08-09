@@ -9,11 +9,10 @@ php:
 
 addons:
   code_climate:
-    repo_token: e43f1f89afb5a2f6acfaea42a6a9ebd8d33538208fafa8636826c173b3f7ec26 
+    repo_token: e43f1f89afb5a2f6acfaea42a6a9ebd8d33538208fafa8636826c173b3f7ec26
 
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
 after_script:
-  - vendor/bin/test-reporter
