@@ -19,6 +19,8 @@ class Fiskalizacija
     public $certificate;
     private $security;
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
+    private $privateKeyResource;
+    private $publicCertificateData;
 
     public function __construct($path, $pass, $security = 'SSL', $demo = false)
     {
@@ -93,7 +95,7 @@ class Fiskalizacija
         $SignedInfoNode = $XMLRequestDOMDoc->getElementsByTagName('SignedInfo')->item(0);
 
         $X509Issuer = $this->publicCertificateData['issuer'];
-        $X509IssuerName = sprintf('OU=%s,O=%s,C=%s', $X509Issuer['OU'], $X509Issuer['O'], $X509Issuer['C']);
+        $X509IssuerName = sprintf('CN=%s, O=%s, C=%s', $X509Issuer['CN'], $X509Issuer['O'], $X509Issuer['C']);
         $X509IssuerSerial = $this->publicCertificateData['serialNumber'];
 
         $publicCertificatePureString = str_replace('-----BEGIN CERTIFICATE-----', '', $this->certificate['cert']);
