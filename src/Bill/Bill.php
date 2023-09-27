@@ -152,12 +152,12 @@ class Bill
     public function securityCode($pkey, $oib, $dt, $bor, $opp, $onu, $uir)
     {
         $medjurezultat = "";
-        $medjurezultat .= $oib;
-        $medjurezultat .= $dt;
-        $medjurezultat .= $opp;
-        $medjurezultat .= $bor;
-        $medjurezultat .= $onu;
-        $medjurezultat .= $uir;
+        $medjurezultat .= $oib; // 1. OIB
+        $medjurezultat .= $dt; // 2. Datum i vrijeme izdavanja računa zapisan kao tekst u formatu 'dd.mm.gggg hh:mm:ss'
+        $medjurezultat .= $bor; // 3. Brojcana oznaka racuna
+        $medjurezultat .= $opp; // 4. Oznaka poslovnog prostora
+        $medjurezultat .= $onu; // 5. Oznaka naplatnog uređaja
+        $medjurezultat .= $uir; // 6. Ukupni iznos računa
 
         $zastKodSignature = null;
 
