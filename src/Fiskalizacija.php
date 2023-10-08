@@ -96,7 +96,7 @@ class Fiskalizacija
 
         $X509Issuer = $this->publicCertificateData['issuer'];
         $X509IssuerName = sprintf('CN=%s, O=%s, C=%s', $X509Issuer['CN'], $X509Issuer['O'], $X509Issuer['C']);
-        $X509IssuerSerial = $this->publicCertificateData['serialNumber'];
+        $X509IssuerSerial = base_convert($this->publicCertificateData['serialNumber'], 16, 10);
 
         $publicCertificatePureString = str_replace('-----BEGIN CERTIFICATE-----', '', $this->certificate['cert']);
         $publicCertificatePureString = str_replace('-----END CERTIFICATE-----', '', $publicCertificatePureString);
