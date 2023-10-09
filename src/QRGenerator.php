@@ -1,6 +1,8 @@
 <?php namespace Nticaric\Fiskalizacija;
 
 use DateTime;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\QrCode;
 
 class QRGenerator
@@ -32,7 +34,12 @@ class QRGenerator
     public function getQrCode()
     {
         $url    = $this->generateUrl();
-        $qrCode = new QrCode($url);
-        return base64_encode($qrCode->writeString());
+        $result = Builder::create()
+            ->data($url)
+            ->size(135)
+            ->errorCorrectionLevel(ErrorCorrectionLevel::Medium)
+            ->build();
+
+        return $result->getDataUri();
     }
 }

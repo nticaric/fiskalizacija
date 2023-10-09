@@ -53,7 +53,8 @@ $bill = new Bill();
 
 $bill->setOib("32314900695");
 $bill->setHavePDV(true);
-$bill->setDateTime("15.07.2014T20:00:00");
+$invoiceDate = "15.07.2014T20:00:00";
+$bill->setDateTime($invoiceDate);
 //  $bill->setNoteOfOrder("P");
 $bill->setBillNumber($billNumber);
 $bill->setListPDV($listPdv);
@@ -63,7 +64,8 @@ $bill->setTaxFreeValue(23.5);
 $bill->setMarginForTaxRate(32.0);
 $bill->setTaxFree(5.1);
 //$bill->setRefund(refund);
-$bill->setTotalValue(456.1);
+$totalValue = 456.1;
+$bill->setTotalValue($totalValue);
 $bill->setTypeOfPlacanje("G");
 $bill->setOibOperative("34562123431");
 
@@ -90,7 +92,10 @@ $response    = $fis->sendSoap($soapMessage);
 
 $parser = new ResponseParser($response);
 $jir    = $parser->getJir();
-var_dump($jir);
+
+$qrGenerator = new QRGenerator($jir, $invoiceDate, $totalValue);
+echo $qrGenerator->generateUrl(); // Output the URL
+//echo $qrGenerator->getQrCode(); // Output the base64-encoded QR code image
 ```
 
 ### OpenSSL 3
