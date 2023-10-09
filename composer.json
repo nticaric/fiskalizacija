@@ -10,7 +10,8 @@
     }],
     "require": {
         "php": ">=7.3.0",
-        "nesbot/carbon": "2.*"
+        "nesbot/carbon": "2.*",
+        "endroid/qr-code": "^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
