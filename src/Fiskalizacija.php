@@ -19,6 +19,8 @@ class Fiskalizacija
     public $certificate;
     private $security;
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
+    private $privateKeyResource;
+    private $publicCertificateData;
 
     public function __construct($path, $pass, $security = 'SSL', $demo = false)
     {
@@ -26,9 +28,9 @@ class Fiskalizacija
             $this->url = "https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest";
         }
         $this->setCertificate($path, $pass);
-        $this->privateKeyResource = openssl_pkey_get_private($this->certificate['pkey'], $pass);
+        $this->privateKeyResource    = openssl_pkey_get_private($this->certificate['pkey'], $pass);
         $this->publicCertificateData = openssl_x509_parse($this->certificate['cert']);
-        $this->security = $security;
+        $this->security              = $security;
     }
 
     public function setCertificate($path, $pass)
@@ -57,7 +59,7 @@ class Fiskalizacija
         $XMLRequestDOMDoc = new DOMDocument();
         $XMLRequestDOMDoc->loadXML($XMLRequest);
 
-        $canonical = $XMLRequestDOMDoc->C14N();
+        $canonical   = $XMLRequestDOMDoc->C14N();
         $DigestValue = base64_encode(hash('sha1', $canonical, true));
 
         $rootElem = $XMLRequestDOMDoc->documentElement;
@@ -92,8 +94,8 @@ class Fiskalizacija
 
         $SignedInfoNode = $XMLRequestDOMDoc->getElementsByTagName('SignedInfo')->item(0);
 
-        $X509Issuer = $this->publicCertificateData['issuer'];
-        $X509IssuerName = sprintf('OU=%s,O=%s,C=%s', $X509Issuer['OU'], $X509Issuer['O'], $X509Issuer['C']);
+        $X509Issuer       = $this->publicCertificateData['issuer'];
+        $X509IssuerName   = sprintf('CN=%s, O=%s, C=%s', $X509Issuer['CN'], $X509Issuer['O'], $X509Issuer['C']);
         $X509IssuerSerial = base_convert($this->publicCertificateData['serialNumber'], 16, 10);
 
         $publicCertificatePureString = str_replace('-----BEGIN CERTIFICATE-----', '', $this->certificate['cert']);
@@ -105,13 +107,13 @@ class Fiskalizacija
             throw new Exception('Unable to sign the request');
         }
 
-        $SignatureNode = $XMLRequestDOMDoc->getElementsByTagName('Signature')->item(0);
+        $SignatureNode      = $XMLRequestDOMDoc->getElementsByTagName('Signature')->item(0);
         $SignatureValueNode = new DOMElement('SignatureValue', base64_encode($this->signedInfoSignature));
         $SignatureNode->appendChild($SignatureValueNode);
 
         $KeyInfoNode = $SignatureNode->appendChild(new DOMElement('KeyInfo'));
 
-        $X509DataNode = $KeyInfoNode->appendChild(new DOMElement('X509Data'));
+        $X509DataNode        = $KeyInfoNode->appendChild(new DOMElement('X509Data'));
         $X509CertificateNode = new DOMElement('X509Certificate', $publicCertificatePureString);
         $X509DataNode->appendChild($X509CertificateNode);
 
@@ -130,8 +132,8 @@ class Fiskalizacija
 		</soapenv:Envelope>');
 
         $envelope->encoding = 'UTF-8';
-        $envelope->version = '1.0';
-        $XMLRequestType = $XMLRequestDOMDoc->documentElement->localName;
+        $envelope->version  = '1.0';
+        $XMLRequestType     = $XMLRequestDOMDoc->documentElement->localName;
         $XMLRequestTypeNode = $XMLRequestDOMDoc->getElementsByTagName($XMLRequestType)->item(0);
         $XMLRequestTypeNode = $envelope->importNode($XMLRequestTypeNode, true);
 
@@ -151,8 +153,8 @@ class Fiskalizacija
 		</soapenv:Envelope>');
 
         $envelope->encoding = 'UTF-8';
-        $envelope->version = '1.0';
-        $XMLRequestType = $XMLRequestDOMDoc->documentElement->localName;
+        $envelope->version  = '1.0';
+        $XMLRequestType     = $XMLRequestDOMDoc->documentElement->localName;
         $XMLRequestTypeNode = $XMLRequestDOMDoc->getElementsByTagName($XMLRequestType)->item(0);
         $XMLRequestTypeNode = $envelope->importNode($XMLRequestTypeNode, true);
 
@@ -164,17 +166,17 @@ class Fiskalizacija
     {
         $ch = curl_init();
 
-        $options = array(
-            CURLOPT_URL => $this->url,
+        $options = [
+            CURLOPT_URL            => $this->url,
             CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_TIMEOUT => 5,
+            CURLOPT_TIMEOUT        => 5,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $payload,
             CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYPEER => false
             //CURLOPT_CAINFO => './tests/democacert.cer.pem',
-        );
+        ];
 
         switch ($this->security) {
             case 'SSL':
@@ -191,7 +193,7 @@ class Fiskalizacija
         curl_setopt_array($ch, $options);
 
         $response = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $code     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($response) {
             curl_close($ch);
@@ -211,7 +213,7 @@ class Fiskalizacija
             $DOMResponse = new DOMDocument();
             $DOMResponse->loadXML($response);
 
-            $SifraGreske = $DOMResponse->getElementsByTagName('SifraGreske')->item(0);
+            $SifraGreske  = $DOMResponse->getElementsByTagName('SifraGreske')->item(0);
             $PorukaGreske = $DOMResponse->getElementsByTagName('PorukaGreske')->item(0);
 
             if ($SifraGreske && $PorukaGreske) {
