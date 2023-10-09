@@ -99,14 +99,13 @@ Ukoliko dobivate error:
 Ova greška se obično pojavljuje kada koristite OpenSSL verziju 3.0, koja ne podržava neke od starijih algoritama za šifriranje koji su korišteni u prijašnjim verzijama OpenSSL-a. 
 Na primjer, ako je vaša PKCS#12 datoteka šifrirana koristeći algoritam RC2-40-CBC, koji nije podržan u OpenSSL 3.0, dobit ćete ovu grešku.
 
-Ako možete pristupiti sustavu sa starijom verzijom OpenSSL-a, možete konvertirati PKCS#12 datoteku u neki drugi format koji je podržan od strane OpenSSL 3.0, 
-ili čak konvertirati je u noviji PKCS#12 format koristeći jači algoritam za šifriranje.
+Ako možete pristupiti sustavu sa starijom verzijom OpenSSL-a, možete konvertirati PKCS#12 datoteku u noviji PKCS#12 format koristeći jači algoritam za šifriranje.
 
-`openssl pkcs12 -in <ImeCertifikata>.p12 -out temp.pem -nodes -passin pass:<VašaLozinka>`
+`openssl pkcs12 -in FISKAL_1.p12 -out temp.pem -nodes -passin pass:<VašaLozinka>`
 
 pa onda
 
-`openssl pkcs12 -export -in temp.pem -out new.p12 -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES`
+`openssl pkcs12 -export -in temp.pem -out FISKAL_NEW.p12 -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES`
 
 
 ### Primjer testne poruke:
