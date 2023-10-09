@@ -90,50 +90,24 @@ $res = $fis->sendSoap($soapMessage);
 var_dump($res);
 ```
 
-### Primjer poslovnog prostora:
+### OpenSSL 3
 
-```php
+Ukoliko dobivate error:
 
-<?php
+`error:0308010C:digital envelope routines::unsupported`
 
-use Nticaric\Fiskalizacija\Fiskalizacija;
-use Nticaric\Fiskalizacija\Business\Address;
-use Nticaric\Fiskalizacija\Business\AddressData;
-use Nticaric\Fiskalizacija\Business\BusinessArea;
-use Nticaric\Fiskalizacija\Business\BusinessAreaRequest;
-use Carbon\Carbon;
+Ova greška se obično pojavljuje kada koristite OpenSSL verziju 3.0, koja ne podržava neke od starijih algoritama za šifriranje koji su korišteni u prijašnjim verzijama OpenSSL-a. 
+Na primjer, ako je vaša PKCS#12 datoteka šifrirana koristeći algoritam RC2-40-CBC, koji nije podržan u OpenSSL 3.0, dobit ćete ovu grešku.
 
-$address = new Address;
-$address->street = "Sv. Mateja";
-$address->houseNumber = "19";
-$address->zipCode = "10000";
-$address->settlement = "Zagreb";
-$address->city = "Zagreb";
+Ako možete pristupiti sustavu sa starijom verzijom OpenSSL-a, možete konvertirati PKCS#12 datoteku u neki drugi format koji je podržan od strane OpenSSL 3.0, 
+ili čak konvertirati je u noviji PKCS#12 format koristeći jači algoritam za šifriranje.
 
-$addressData = new AddressData;
-$addressData->setAddress($address);
+`openssl pkcs12 -in <ImeCertifikata>.p12 -out temp.pem -nodes -passin pass:<VašaLozinka>`
 
-$businessArea = new BusinessArea;
-$businessArea->setAddressData($addressData);
+pa onda
 
-$date = Carbon::now()->format("d.m.Y");
-$businessArea->setDateOfusage($date);
+`openssl pkcs12 -export -in temp.pem -out new.p12 -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES`
 
-$businessArea->setNoteOfBusinessArea("ODV1");
-//$businessArea->setNoteOfClosing("Z");
-$businessArea->setOib("32314900695");
-$businessArea->setSpecificPurpose("spec namjena");
-
-$businessArea->setWorkingTime("Pon:08-11h Uto:15-17");
-$businessAreaRequest = new BusinessAreaRequest($businessArea);
-
-$fis = new Fiskalizacija("./path/to/demo.pfx", "password", "TLS", true);
-
-$soapMessage = $fis->signXML($businessAreaRequest->toXML());
-
-$res = $fis->sendSoap($soapMessage);
-var_dump($res);
-```
 
 ### Primjer testne poruke:
 

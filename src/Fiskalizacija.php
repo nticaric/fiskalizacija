@@ -36,7 +36,11 @@ class Fiskalizacija
     public function setCertificate($path, $pass)
     {
         $pkcs12 = $this->readCertificateFromDisk($path);
-        openssl_pkcs12_read($pkcs12, $this->certificate, $pass);
+        $res    = openssl_pkcs12_read($pkcs12, $this->certificate, $pass);
+
+        if (false == $res) {
+            throw new \Exception(openssl_error_string(), 1);
+        }
     }
 
     public function readCertificateFromDisk($path)
@@ -128,8 +132,8 @@ class Fiskalizacija
         $envelope = new DOMDocument();
 
         $envelope->loadXML('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-		    <soapenv:Body></soapenv:Body>
-		</soapenv:Envelope>');
+            <soapenv:Body></soapenv:Body>
+        </soapenv:Envelope>');
 
         $envelope->encoding = 'UTF-8';
         $envelope->version  = '1.0';
@@ -149,8 +153,8 @@ class Fiskalizacija
         $envelope = new DOMDocument();
 
         $envelope->loadXML('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-		    <soapenv:Body></soapenv:Body>
-		</soapenv:Envelope>');
+            <soapenv:Body></soapenv:Body>
+        </soapenv:Envelope>');
 
         $envelope->encoding = 'UTF-8';
         $envelope->version  = '1.0';
