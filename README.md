@@ -86,8 +86,11 @@ $bill->setNoteOfRedelivary(false);
 $billRequest = new BillRequest($bill);
 
 $soapMessage = $fis->signXML($billRequest->toXML());
-$res = $fis->sendSoap($soapMessage);
-var_dump($res);
+$response    = $fis->sendSoap($soapMessage);
+
+$parser = new ResponseParser($response);
+$jir    = $parser->getJir();
+var_dump($jir);
 ```
 
 ### OpenSSL 3

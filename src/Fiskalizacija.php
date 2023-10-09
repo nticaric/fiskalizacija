@@ -21,6 +21,7 @@ class Fiskalizacija
     private $url = "https://cis.porezna-uprava.hr:8449/FiskalizacijaService";
     private $privateKeyResource;
     private $publicCertificateData;
+    private $signedInfoSignature;
 
     public function __construct($path, $pass, $security = 'SSL', $demo = false)
     {
