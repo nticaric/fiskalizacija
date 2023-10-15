@@ -15,7 +15,8 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^4|^5.2"
     },
     "autoload": {
         "psr-4": {
