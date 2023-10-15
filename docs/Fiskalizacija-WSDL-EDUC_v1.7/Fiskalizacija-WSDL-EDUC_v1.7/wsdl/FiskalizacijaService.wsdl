@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="FiskalizacijaService"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="http://www.apis-it.hr/fin/2012/services/FiskalizacijaService"
+                  xmlns:uis="http://www.apis-it.hr/fin/2012/services/FiskalizacijaService"
+                  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                  xmlns:fis="http://www.apis-it.hr/fin/2012/types/f73">
+
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.apis-it.hr/fin/2012/types/f73" schemaLocation="../schema/FiskalizacijaSchema.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+
+  <wsdl:message name="RacuniRequest">
+    <wsdl:part element="fis:RacunZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="RacuniResponse">
+    <wsdl:part element="fis:RacunOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:message name="EchoRequest">
+    <wsdl:part element="fis:EchoRequest" name="request" />
+  </wsdl:message>
+  <wsdl:message name="EchoResponse">
+    <wsdl:part element="fis:EchoResponse" name="response" />
+  </wsdl:message>
+
+  <wsdl:message name="PrateciDokumentiRequest">
+    <wsdl:part element="fis:PrateciDokumentiZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="PrateciDokumentiResponse">
+    <wsdl:part element="fis:PrateciDokumentiOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:message name="RacuniPDRequest">
+    <wsdl:part element="fis:RacunPDZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="RacuniPDResponse">
+    <wsdl:part element="fis:RacunPDOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:message name="ProvjeraRequest">
+    <wsdl:part element="fis:ProvjeraZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="ProvjeraResponse">
+    <wsdl:part element="fis:ProvjeraOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:message name="PromijeniNacPlacRequest">
+    <wsdl:part element="fis:PromijeniNacPlacZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="PromijeniNacPlacResponse">
+    <wsdl:part element="fis:PromijeniNacPlacOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:message name="NapojnicaRequest">
+    <wsdl:part element="fis:NapojnicaZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="NapojnicaResponse">
+    <wsdl:part element="fis:NapojnicaOdgovor" name="response"/>
+  </wsdl:message>
+
+  <wsdl:portType name="FiskalizacijaPortType">
+    <wsdl:operation name="racuni">
+      <wsdl:input message="uis:RacuniRequest"/>
+      <wsdl:output message="uis:RacuniResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="prateciDokumenti">
+      <wsdl:input message="uis:PrateciDokumentiRequest"/>
+      <wsdl:output message="uis:PrateciDokumentiResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="racuniPD">
+      <wsdl:input message="uis:RacuniPDRequest"/>
+      <wsdl:output message="uis:RacuniPDResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="provjera">
+      <wsdl:input message="uis:ProvjeraRequest"/>
+      <wsdl:output message="uis:ProvjeraResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="promijeniNacPlac">
+      <wsdl:input message="uis:PromijeniNacPlacRequest"/>
+      <wsdl:output message="uis:PromijeniNacPlacResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="napojnica">
+      <wsdl:input message="uis:NapojnicaRequest"/>
+      <wsdl:output message="uis:NapojnicaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <wsdl:input message="uis:EchoRequest"/>
+      <wsdl:output message="uis:EchoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="FiskalizacijaService" type="uis:FiskalizacijaPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="racuni">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/racuni"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="prateciDokumenti">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/prateciDokumenti"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="racuniPD">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/racuniPD"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="provjera">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/provjera"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="promijeniNacPlac">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/promijeniNacPlac"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="napojnica">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/napojnica"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/echo"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="FiskalizacijaService">
+    <wsdl:port name="FiskalizacijaPortType" binding="uis:FiskalizacijaService">
+      <soap:address location="https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest"/>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,8 @@
+﻿Datum verzije: 23.06.2023.
+verzija: 1.7
+
+Promjene:
+	- u WSDL-u dodana nova metoda 'napojnica' 
+	- u schemi dodani elementi 'NapojnicaZahtjev', 'NapojnicaOdgovor' i ostalo vezano za nove elemente. 
+
+----------------------------------------------------------------------------------------------------
