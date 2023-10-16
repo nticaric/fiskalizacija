@@ -16,10 +16,8 @@ class SoapClient
         $this->security = $security;
     }
 
-    public function send($xml)
+    public function send($payload)
     {
-        $payload = $this->addEnvelope($xml);
-
         $ch = curl_init();
 
         $options = [
@@ -58,10 +56,10 @@ class SoapClient
         }
     }
 
-    public function addEnvelope($XMLRequest)
+    public function addEnvelope($xml)
     {
         $XMLRequestDOMDoc = new DOMDocument();
-        $XMLRequestDOMDoc->loadXML($XMLRequest);
+        $XMLRequestDOMDoc->loadXML($xml);
 
         $envelope = new DOMDocument();
 

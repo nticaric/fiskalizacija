@@ -13,9 +13,11 @@ class EchoRequestTest extends TestCase
         $echoRequest = new EchoRequest($message);
         $xml         = $echoRequest->toXML();
 
-        $soapClient = new SoapClient("https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest");
-        $res        = $soapClient->send($xml);
+        $soapClient  = new SoapClient("https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest");
+        $xmlEnvelope = $soapClient->addEnvelope($xml);
 
-        $this->assertEquals($message, $res->body());
+        $res = $soapClient->send($xmlEnvelope);
+
+        $this->assertEquals($message, $res->body()->nodeValue);
     }
 }

@@ -31,11 +31,20 @@ class ResponseParser
 
     public function body()
     {
-        $query   = '/soap:Envelope/soap:Body/tns:EchoResponse';
+        // Query for the SOAP body
+        $query   = '/soap:Envelope/soap:Body/*';
         $entries = $this->xpath->query($query);
+
         if ($entries->length > 0) {
-            return $entries->item(0)->nodeValue;
+            // Return the first child node's value within the SOAP body
+            return $entries->item(0);
         }
-        throw new Exception('EchoResponse body not found in the response');
+
+        throw new Exception('No response body found in the SOAP response');
+    }
+
+    public function document()
+    {
+        return $this->document;
     }
 }

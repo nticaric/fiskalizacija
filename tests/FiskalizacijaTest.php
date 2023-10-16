@@ -48,11 +48,35 @@ class FiskalizacijaTest extends TestCase
             $_ENV['CERTIFICATE_PASSWORD'],
             "TLS", true);
 
-        $soapMessage = $fis->signXML($billRequest->toXML());
+        $xml = $billRequest->toXML();
+
+        $xsdPath = dirname(__DIR__) . "/docs/Fiskalizacija-WSDL-EDUC_v1.7/schema/FiskalizacijaSchema.xsd";
+        // Load the XML
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+
+        $soapMessage = $fis->signXML($xml);
 
         $res = $fis->sendSoap($soapMessage);
-        dd($res);
-        $this->assertEquals('RacunOdgovor', $res);
+        $this->assertEquals('tns:RacunOdgovor', $res->body()->nodeName);
+    }
+
+    public function testJirGeneration()
+    {
+        $billRequest    = $this->setBillRequest();
+        $billRequestXML = $billRequest->toXML();
+
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
+
+        $signedXML = $fis->signXML($billRequestXML);
+
+        $res = $fis->sendSoap($signedXML);
+        $jir = $res->getJir();
+
+        $this->assertSame(36, strlen($jir));
     }
 
     public function setBillRequest()
