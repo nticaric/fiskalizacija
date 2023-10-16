@@ -28,4 +28,14 @@ class ResponseParser
         }
         throw new Exception('JIR value not found in the response');
     }
+
+    public function body()
+    {
+        $query   = '/soap:Envelope/soap:Body/tns:EchoResponse';
+        $entries = $this->xpath->query($query);
+        if ($entries->length > 0) {
+            return $entries->item(0)->nodeValue;
+        }
+        throw new Exception('EchoResponse body not found in the response');
+    }
 }

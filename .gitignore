@@ -7,3 +7,5 @@ coverage
 build/logs
 .phpunit.result.cache
 .idea
+.env
+FISKAL_NEW.p12

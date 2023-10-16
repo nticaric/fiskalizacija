@@ -43,6 +43,8 @@ class Bill
 
     public $specificPurpose;
 
+    protected $napojnica = null;
+
     public function setOib($oib)
     {
         $this->oib = $oib;
@@ -138,6 +140,10 @@ class Bill
         $this->specificPurpose = $specificPurpose;
     }
 
+    public function setNapojnica($napojnica)
+    {
+        $this->napojnica = $napojnica;
+    }
     /**
      * Generiranje zaštitnog koda na temelju ulaznih parametara
      * @param  [type] $pkey privatni kljuc iz certifikata
@@ -241,6 +247,12 @@ class Bill
 
         if ($this->specificPurpose) {
             $writer->writeElementNs($ns, 'SpecNamj', null, $this->specificPurpose);
+        }
+
+        if ($this->napojnica) {
+            $writer->startElementNs($ns, 'Napojnica', null);
+            $writer->writeRaw($this->napojnica->toXML());
+            $writer->endElement();
         }
 
         $writer->endElement();

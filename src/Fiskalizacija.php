@@ -12,6 +12,7 @@
 use DOMDocument;
 use DOMElement;
 use Exception;
+use Nticaric\Fiskalizacija\SoapClient;
 
 class Fiskalizacija
 {
@@ -40,7 +41,13 @@ class Fiskalizacija
         $res    = openssl_pkcs12_read($pkcs12, $this->certificate, $pass);
 
         if (false == $res) {
-            throw new \Exception(openssl_error_string(), 1);
+            $errorString = openssl_error_string();
+
+            if (strpos($errorString, 'mac verify failure') !== false) {
+                throw new \Exception("Wrong password provided for the certificate.", 1);
+            }
+
+            throw new \Exception($errorString, 1);
         }
     }
 
@@ -169,45 +176,8 @@ class Fiskalizacija
 
     public function sendSoap($payload)
     {
-        $ch = curl_init();
-
-        $options = [
-            CURLOPT_URL            => $this->url,
-            CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_TIMEOUT        => 5,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $payload,
-            CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_SSL_VERIFYPEER => false
-            //CURLOPT_CAINFO => './tests/democacert.cer.pem',
-        ];
-
-        switch ($this->security) {
-            case 'SSL':
-                break;
-            case 'TLS':
-                curl_setopt($ch, CURLOPT_SSLVERSION, 6);
-                break;
-            default:
-                throw new \InvalidArgumentException(
-                    'Treći parametar konstruktora klase Fiskalizacija mora biti SSL ili TLS!'
-                );
-        }
-
-        curl_setopt_array($ch, $options);
-
-        $response = curl_exec($ch);
-        $code     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($response) {
-            curl_close($ch);
-            return $this->parseResponse($response, $code);
-        } else {
-            throw new Exception(curl_error($ch));
-            curl_close($ch);
-        }
-
+        $client = new SoapClient($this->url, $this->security);
+        return $client->send($payload);
     }
 
     public function parseResponse($response, $code = 4)

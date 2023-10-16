@@ -18,40 +18,23 @@ class FiskalizacijaTest extends TestCase
     public function config()
     {
         return [
-            'path' => "./tests/demo.pfx",
-            'pass' => "password",
+            'path'     => $_ENV['CERTIFICATE_PATH'],
+            'pass'     => $_ENV['CERTIFICATE_PASSWORD'],
             'security' => 'TLS',
-            'demo' => true
+            'demo'     => true
         ];
-    }
-
-    public function mockFiskalizacijaClass()
-    {
-        $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->onlyMethods([ 'signXML', 'sendSoap', 'getPrivateKey'])
-            ->setConstructorArgs($this->config())
-            ->getMock();
-
-        $keyPair = openssl_pkey_new([
-            "private_key_bits" => 2048,
-            "private_key_type" => OPENSSL_KEYTYPE_RSA,
-        ]);
-
-        openssl_pkey_export($keyPair, $privateKeyPem);
-
-        $mock->method('getPrivateKey')
-            ->willReturn($privateKeyPem);
-
-        return $mock;
     }
 
     public function testSetCertificate()
     {
-        $pathToDemoCert   = "./tests/demo.pfx";
-        $fis              = $this->mockFiskalizacijaClass();
-        $fis->certificate = "certificate";
+        $pathToDemoCert = $_ENV['CERTIFICATE_PATH'];
 
-        $fis->setCertificate($pathToDemoCert, "password");
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
+
+        $fis->setCertificate($pathToDemoCert, $_ENV['CERTIFICATE_PASSWORD']);
         $this->assertNotNull($fis->certificate, 'Certificate must not be null');
     }
 
@@ -60,18 +43,15 @@ class FiskalizacijaTest extends TestCase
         $config      = $this->config();
         $billRequest = $this->setBillRequest();
 
-        $fis = $this->mockFiskalizacijaClass();
-        $fis->expects($this->once())
-            ->method('signXML')
-            ->will($this->returnArgument(0));
-
-        $fis->expects($this->once())
-            ->method('sendSoap')
-            ->will($this->returnValue('RacunOdgovor'));
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
 
         $soapMessage = $fis->signXML($billRequest->toXML());
 
         $res = $fis->sendSoap($soapMessage);
+        dd($res);
         $this->assertEquals('RacunOdgovor', $res);
     }
 
@@ -111,7 +91,10 @@ class FiskalizacijaTest extends TestCase
         $bill->setTypeOfPlacanje("G");
         $bill->setOibOperative("34562123431");
 
-        $fis = $this->mockFiskalizacijaClass();
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
 
         $bill->setSecurityCode(
             $bill->securityCode(

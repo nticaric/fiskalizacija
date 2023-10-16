@@ -45,7 +45,10 @@ class BillTest extends TestCase
         $bill->setTypeOfPlacanje("G");
         $bill->setOibOperative("34562123431");
 
-        $fis = $this->mockFiskalizacijaClass();
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
 
         $bill->setSecurityCode(
             $bill->securityCode(
@@ -61,30 +64,8 @@ class BillTest extends TestCase
         $bill->setNoteOfRedelivary(false);
 
         $res = $bill->toXML();
+
         $this->assertStringEqualsFile('./tests/xml/business_bill.xml', $res);
 
-    }
-
-    public function mockFiskalizacijaClass()
-    {
-        $mock = $this->getMockBuilder('Nticaric\Fiskalizacija\Fiskalizacija')
-            ->setMethods(['readCertificateFromDisk', 'signXML', 'sendSoap', 'getPrivateKey'])
-            ->setConstructorArgs([
-                'path' => "",
-                'pass'        => "",
-            ])
-            ->getMock();
-
-        $keyPair = openssl_pkey_new([
-            "private_key_bits" => 2048,
-            "private_key_type" => OPENSSL_KEYTYPE_RSA,
-        ]);
-
-        openssl_pkey_export($keyPair, $privateKeyPem);
-
-        $mock->method('getPrivateKey')
-            ->willReturn($privateKeyPem);
-
-        return $mock;
     }
 }
