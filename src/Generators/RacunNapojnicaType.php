@@ -562,7 +562,7 @@ class RacunNapojnicaType
      */
     public function setIznosMarza($iznosMarza)
     {
-        $this->iznosMarza = $iznosMarza;
+        $this->iznosMarza = number_format($iznosMarza, 2, '.', '');
         return $this;
     }
 
@@ -588,7 +588,7 @@ class RacunNapojnicaType
      */
     public function setIznosNePodlOpor($iznosNePodlOpor)
     {
-        $this->iznosNePodlOpor = $iznosNePodlOpor;
+        $this->iznosNePodlOpor = number_format($iznosNePodlOpor, 2, '.', '');
         return $this;
     }
 
@@ -680,7 +680,7 @@ class RacunNapojnicaType
      */
     public function setIznosUkupno($iznosUkupno)
     {
-        $this->iznosUkupno = $iznosUkupno;
+        $this->iznosUkupno = number_format($iznosUkupno, 2, '.', '');
         return $this;
     }
 

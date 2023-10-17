@@ -156,7 +156,7 @@ class PrateciDokumentType
      */
     public function setIznosUkupno($iznosUkupno)
     {
-        $this->iznosUkupno = $iznosUkupno;
+        $this->iznosUkupno = number_format($iznosUkupno, 2, '.', '');
         return $this;
     }
 
@@ -220,4 +220,3 @@ class PrateciDokumentType
         return $this;
     }
 }
-
