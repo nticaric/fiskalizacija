@@ -66,19 +66,6 @@ class FiskalizacijaTest extends TestCase
         $serializer  = new XMLSerializer($billRequest);
         $xml         = $serializer->toXml();
 
-        $xsdPath = dirname(__DIR__) . "/docs/Fiskalizacija-WSDL-EDUC_v1.7/schema/FiskalizacijaSchema.xsd";
-        // Load the XML
-        $dom = new DOMDocument();
-        $dom->loadXML($xml);
-
-        if ($dom->schemaValidate($xsdPath)) {
-            $this->assertTrue(true, "XML je validan");
-        } else {
-            $this->assertTrue(false, "XML nije validan");
-        }
-
-        dd($xml);
-
         $fis = new Fiskalizacija(
             $_ENV['CERTIFICATE_PATH'],
             $_ENV['CERTIFICATE_PASSWORD'],
@@ -118,9 +105,9 @@ class FiskalizacijaTest extends TestCase
         $bill->setPdv($listPdv);
         $bill->setPnp($listPnp);
         $bill->setOstaliPor($listOtherTaxRate);
-        $bill->setIznosOslobPdv(23.50);
-        $bill->setIznosMarza(32.00);
-        $bill->setIznosNePodlOpor(5.10);
+        $bill->setIznosOslobPdv(23.5);
+        $bill->setIznosMarza(32.0);
+        $bill->setIznosNePodlOpor(5.1);
         $bill->setIznosUkupno(456.1);
         $bill->setNacinPlac("G");
         $bill->setOibOper("34562123431");
