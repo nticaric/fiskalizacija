@@ -1,0 +1,32 @@
+Nticaric\Fiskalizacija\Generators\BrojPDType:
+    properties:
+        brOznPD:
+            expose: true
+            access_type: public_method
+            serialized_name: BrOznPD
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getBrOznPD
+                setter: setBrOznPD
+            type: string
+        oznPosPr:
+            expose: true
+            access_type: public_method
+            serialized_name: OznPosPr
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOznPosPr
+                setter: setOznPosPr
+            type: string
+        oznNapUr:
+            expose: true
+            access_type: public_method
+            serialized_name: OznNapUr
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOznNapUr
+                setter: setOznNapUr
+            type: string

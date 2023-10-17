@@ -1,0 +1,62 @@
+Nticaric\Fiskalizacija\Generators\PrateciDokumentType:
+    properties:
+        oib:
+            expose: true
+            access_type: public_method
+            serialized_name: Oib
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOib
+                setter: setOib
+            type: string
+        datVrijeme:
+            expose: true
+            access_type: public_method
+            serialized_name: DatVrijeme
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getDatVrijeme
+                setter: setDatVrijeme
+            type: string
+        brPratecegDokumenta:
+            expose: true
+            access_type: public_method
+            serialized_name: BrPratecegDokumenta
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getBrPratecegDokumenta
+                setter: setBrPratecegDokumenta
+            type: Nticaric\Fiskalizacija\Generators\BrojPDType
+        iznosUkupno:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosUkupno
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosUkupno
+                setter: setIznosUkupno
+            type: string
+        zastKodPD:
+            expose: true
+            access_type: public_method
+            serialized_name: ZastKodPD
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getZastKodPD
+                setter: setZastKodPD
+            type: string
+        nakDost:
+            expose: true
+            access_type: public_method
+            serialized_name: NakDost
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNakDost
+                setter: setNakDost
+            type: bool

@@ -11,13 +11,15 @@
     "require": {
         "php": ">=7.3.0",
         "nesbot/carbon": "2.*",
-        "endroid/qr-code": "^5.0"
+        "endroid/qr-code": "^5.0",
+        "goetas-webservices/xsd2php-runtime": "^0.2.16"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^4|^5.2",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "goetas-webservices/xsd2php": "^0.4.12"
 
     },
     "autoload": {

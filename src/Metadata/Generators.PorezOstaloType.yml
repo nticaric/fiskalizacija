@@ -1,0 +1,42 @@
+Nticaric\Fiskalizacija\Generators\PorezOstaloType:
+    properties:
+        naziv:
+            expose: true
+            access_type: public_method
+            serialized_name: Naziv
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNaziv
+                setter: setNaziv
+            type: string
+        stopa:
+            expose: true
+            access_type: public_method
+            serialized_name: Stopa
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getStopa
+                setter: setStopa
+            type: string
+        osnovica:
+            expose: true
+            access_type: public_method
+            serialized_name: Osnovica
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOsnovica
+                setter: setOsnovica
+            type: string
+        iznos:
+            expose: true
+            access_type: public_method
+            serialized_name: Iznos
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznos
+                setter: setIznos
+            type: string

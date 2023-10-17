@@ -1,0 +1,21 @@
+xsd2php:
+  namespaces:
+    'http://www.apis-it.hr/fin/2012/types/f73': 'Nticaric\Fiskalizacija\Generators'
+    'http://www.w3.org/2000/09/xmldsig#': 'Nticaric\Fiskalizacija\Generators\Xmldsig'
+  destinations_php: 
+    'Nticaric\Fiskalizacija\Generators': src/Generators
+
+  destinations_jms:
+    'Nticaric\Fiskalizacija': src/Metadata
+ 
+#  Uncomment this section if you want to have also symfony/validator metadata to be generated from XSD    
+#  destinations_validation:
+#    'Nticaric\Fiskalizacija': src/validation
+ 
+
+#  known_locations: # optional
+#    "http://www.example.org/test/somefile.xsd": somefile.xsd
+#  known_namespace_locations: # optional
+#    "urn:veloconnect:catalog-1.1": xsd/catalog-1.1.xsd
+# configs_jms:  #optional
+#   xml_cdata: false # Disables CDATA

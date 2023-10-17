@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\PGPDataType:
+    properties:
+        pGPKeyID:
+            expose: true
+            access_type: public_method
+            serialized_name: PGPKeyID
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getPGPKeyID
+                setter: setPGPKeyID
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        pGPKeyPacket:
+            expose: true
+            access_type: public_method
+            serialized_name: PGPKeyPacket
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getPGPKeyPacket
+                setter: setPGPKeyPacket
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded

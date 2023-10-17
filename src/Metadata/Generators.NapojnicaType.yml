@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\NapojnicaType:
+    properties:
+        iznosNapojnice:
+            expose: true
+            access_type: public_method
+            serialized_name: iznosNapojnice
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosNapojnice
+                setter: setIznosNapojnice
+            type: string
+        nacinPlacanjaNapojnice:
+            expose: true
+            access_type: public_method
+            serialized_name: nacinPlacanjaNapojnice
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNacinPlacanjaNapojnice
+                setter: setNacinPlacanjaNapojnice
+            type: string

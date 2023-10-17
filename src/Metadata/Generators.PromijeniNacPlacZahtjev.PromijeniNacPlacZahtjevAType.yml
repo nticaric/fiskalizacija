@@ -1,0 +1,41 @@
+Nticaric\Fiskalizacija\Generators\PromijeniNacPlacZahtjev\PromijeniNacPlacZahtjevAType:
+    properties:
+        id:
+            expose: true
+            access_type: public_method
+            serialized_name: Id
+            accessor:
+                getter: getId
+                setter: setId
+            xml_attribute: true
+            type: string
+        zaglavlje:
+            expose: true
+            access_type: public_method
+            serialized_name: Zaglavlje
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getZaglavlje
+                setter: setZaglavlje
+            type: Nticaric\Fiskalizacija\Generators\ZaglavljeType
+        racun:
+            expose: true
+            access_type: public_method
+            serialized_name: Racun
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getRacun
+                setter: setRacun
+            type: Nticaric\Fiskalizacija\Generators\RacunPNPType
+        signature:
+            expose: true
+            access_type: public_method
+            serialized_name: Signature
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getSignature
+                setter: setSignature
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\Signature

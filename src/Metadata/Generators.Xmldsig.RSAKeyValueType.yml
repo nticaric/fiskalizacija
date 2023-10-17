@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\RSAKeyValueType:
+    properties:
+        modulus:
+            expose: true
+            access_type: public_method
+            serialized_name: Modulus
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getModulus
+                setter: setModulus
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        exponent:
+            expose: true
+            access_type: public_method
+            serialized_name: Exponent
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getExponent
+                setter: setExponent
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded

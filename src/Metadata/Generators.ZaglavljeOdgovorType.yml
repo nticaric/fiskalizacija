@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\ZaglavljeOdgovorType:
+    properties:
+        idPoruke:
+            expose: true
+            access_type: public_method
+            serialized_name: IdPoruke
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIdPoruke
+                setter: setIdPoruke
+            type: string
+        datumVrijeme:
+            expose: true
+            access_type: public_method
+            serialized_name: DatumVrijeme
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getDatumVrijeme
+                setter: setDatumVrijeme
+            type: string

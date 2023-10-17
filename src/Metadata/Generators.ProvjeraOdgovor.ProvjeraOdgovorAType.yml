@@ -1,0 +1,66 @@
+Nticaric\Fiskalizacija\Generators\ProvjeraOdgovor\ProvjeraOdgovorAType:
+    properties:
+        id:
+            expose: true
+            access_type: public_method
+            serialized_name: Id
+            accessor:
+                getter: getId
+                setter: setId
+            xml_attribute: true
+            type: string
+        zaglavlje:
+            expose: true
+            access_type: public_method
+            serialized_name: Zaglavlje
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getZaglavlje
+                setter: setZaglavlje
+            type: Nticaric\Fiskalizacija\Generators\ZaglavljeOdgovorType
+        racun:
+            expose: true
+            access_type: public_method
+            serialized_name: Racun
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getRacun
+                setter: setRacun
+            type: Nticaric\Fiskalizacija\Generators\RacunType
+        racunPD:
+            expose: true
+            access_type: public_method
+            serialized_name: RacunPD
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getRacunPD
+                setter: setRacunPD
+            type: Nticaric\Fiskalizacija\Generators\RacunPDType
+        greske:
+            expose: true
+            access_type: public_method
+            serialized_name: Greske
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getGreske
+                setter: setGreske
+            type: array<Nticaric\Fiskalizacija\Generators\GreskaType>
+            xml_list:
+                inline: false
+                entry_name: Greska
+                skip_when_empty: true
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+        signature:
+            expose: true
+            access_type: public_method
+            serialized_name: Signature
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getSignature
+                setter: setSignature
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\Signature

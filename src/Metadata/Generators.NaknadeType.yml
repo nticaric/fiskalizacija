@@ -1,0 +1,16 @@
+Nticaric\Fiskalizacija\Generators\NaknadeType:
+    properties:
+        naknada:
+            expose: true
+            access_type: public_method
+            serialized_name: Naknada
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNaknada
+                setter: setNaknada
+            xml_list:
+                inline: true
+                entry_name: Naknada
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            type: array<Nticaric\Fiskalizacija\Generators\NaknadaType>

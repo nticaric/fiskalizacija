@@ -1,0 +1,232 @@
+Nticaric\Fiskalizacija\Generators\RacunPNPType:
+    properties:
+        oib:
+            expose: true
+            access_type: public_method
+            serialized_name: Oib
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOib
+                setter: setOib
+            type: string
+        uSustPdv:
+            expose: true
+            access_type: public_method
+            serialized_name: USustPdv
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getUSustPdv
+                setter: setUSustPdv
+            type: bool
+        datVrijeme:
+            expose: true
+            access_type: public_method
+            serialized_name: DatVrijeme
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getDatVrijeme
+                setter: setDatVrijeme
+            type: string
+        oznSlijed:
+            expose: true
+            access_type: public_method
+            serialized_name: OznSlijed
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOznSlijed
+                setter: setOznSlijed
+            type: string
+        brRac:
+            expose: true
+            access_type: public_method
+            serialized_name: BrRac
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getBrRac
+                setter: setBrRac
+            type: Nticaric\Fiskalizacija\Generators\BrojRacunaType
+        pdv:
+            expose: true
+            access_type: public_method
+            serialized_name: Pdv
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPdv
+                setter: setPdv
+            type: array<Nticaric\Fiskalizacija\Generators\PorezType>
+            xml_list:
+                inline: false
+                entry_name: Porez
+                skip_when_empty: true
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+        pnp:
+            expose: true
+            access_type: public_method
+            serialized_name: Pnp
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPnp
+                setter: setPnp
+            type: array<Nticaric\Fiskalizacija\Generators\PorezType>
+            xml_list:
+                inline: false
+                entry_name: Porez
+                skip_when_empty: true
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+        ostaliPor:
+            expose: true
+            access_type: public_method
+            serialized_name: OstaliPor
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOstaliPor
+                setter: setOstaliPor
+            type: array<Nticaric\Fiskalizacija\Generators\PorezOstaloType>
+            xml_list:
+                inline: false
+                entry_name: Porez
+                skip_when_empty: true
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+        iznosOslobPdv:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosOslobPdv
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosOslobPdv
+                setter: setIznosOslobPdv
+            type: string
+        iznosMarza:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosMarza
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosMarza
+                setter: setIznosMarza
+            type: string
+        iznosNePodlOpor:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosNePodlOpor
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosNePodlOpor
+                setter: setIznosNePodlOpor
+            type: string
+        naknade:
+            expose: true
+            access_type: public_method
+            serialized_name: Naknade
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNaknade
+                setter: setNaknade
+            type: array<Nticaric\Fiskalizacija\Generators\NaknadaType>
+            xml_list:
+                inline: false
+                entry_name: Naknada
+                skip_when_empty: true
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+        iznosUkupno:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosUkupno
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosUkupno
+                setter: setIznosUkupno
+            type: string
+        nacinPlac:
+            expose: true
+            access_type: public_method
+            serialized_name: NacinPlac
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNacinPlac
+                setter: setNacinPlac
+            type: string
+        oibOper:
+            expose: true
+            access_type: public_method
+            serialized_name: OibOper
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOibOper
+                setter: setOibOper
+            type: string
+        zastKod:
+            expose: true
+            access_type: public_method
+            serialized_name: ZastKod
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getZastKod
+                setter: setZastKod
+            type: string
+        nakDost:
+            expose: true
+            access_type: public_method
+            serialized_name: NakDost
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNakDost
+                setter: setNakDost
+            type: bool
+        paragonBrRac:
+            expose: true
+            access_type: public_method
+            serialized_name: ParagonBrRac
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getParagonBrRac
+                setter: setParagonBrRac
+            type: string
+        specNamj:
+            expose: true
+            access_type: public_method
+            serialized_name: SpecNamj
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getSpecNamj
+                setter: setSpecNamj
+            type: string
+        prateciDokument:
+            expose: true
+            access_type: public_method
+            serialized_name: PrateciDokument
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPrateciDokument
+                setter: setPrateciDokument
+            type: Nticaric\Fiskalizacija\Generators\RacunPNPType\PrateciDokumentAType
+        promijenjeniNacinPlac:
+            expose: true
+            access_type: public_method
+            serialized_name: PromijenjeniNacinPlac
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPromijenjeniNacinPlac
+                setter: setPromijenjeniNacinPlac
+            type: string

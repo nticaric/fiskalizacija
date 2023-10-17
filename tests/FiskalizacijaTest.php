@@ -1,16 +1,13 @@
 <?php
 
 use Carbon\Carbon;
-use Nticaric\Fiskalizacija\Bill\Bill;
-use Nticaric\Fiskalizacija\Bill\BillNumber;
-use Nticaric\Fiskalizacija\Bill\BillRequest;
-use Nticaric\Fiskalizacija\Bill\Refund;
-use Nticaric\Fiskalizacija\Bill\TaxRate;
-use Nticaric\Fiskalizacija\Business\Address;
-use Nticaric\Fiskalizacija\Business\AddressData;
-use Nticaric\Fiskalizacija\Business\BusinessArea;
-use Nticaric\Fiskalizacija\Business\BusinessAreaRequest;
 use Nticaric\Fiskalizacija\Fiskalizacija;
+use Nticaric\Fiskalizacija\Generators\BrojRacunaType;
+use Nticaric\Fiskalizacija\Generators\PorezOstaloType;
+use Nticaric\Fiskalizacija\Generators\PorezType;
+use Nticaric\Fiskalizacija\Generators\RacunType;
+use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
+use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
 class FiskalizacijaTest extends TestCase
@@ -41,14 +38,15 @@ class FiskalizacijaTest extends TestCase
     public function testSendSoapBillRequest()
     {
         $config      = $this->config();
-        $billRequest = $this->setBillRequest();
+        $billRequest = $this->getRacunZahtjev();
 
         $fis = new Fiskalizacija(
             $_ENV['CERTIFICATE_PATH'],
             $_ENV['CERTIFICATE_PASSWORD'],
             "TLS", true);
 
-        $xml = $billRequest->toXML();
+        $serializer = new XMLSerializer($billRequest);
+        $xml        = $serializer->toXml();
 
         $xsdPath = dirname(__DIR__) . "/docs/Fiskalizacija-WSDL-EDUC_v1.7/schema/FiskalizacijaSchema.xsd";
         // Load the XML
@@ -63,15 +61,18 @@ class FiskalizacijaTest extends TestCase
 
     public function testJirGeneration()
     {
-        $billRequest    = $this->setBillRequest();
-        $billRequestXML = $billRequest->toXML();
+        $billRequest = $this->getRacunZahtjev();
+        $serializer  = new XMLSerializer($billRequest);
+        $xml         = $serializer->toXml();
+
+        dd($billRequest);
 
         $fis = new Fiskalizacija(
             $_ENV['CERTIFICATE_PATH'],
             $_ENV['CERTIFICATE_PASSWORD'],
             "TLS", true);
 
-        $signedXML = $fis->signXML($billRequestXML);
+        $signedXML = $fis->signXML($xml);
 
         $res = $fis->sendSoap($signedXML);
         $jir = $res->getJir();
@@ -79,61 +80,60 @@ class FiskalizacijaTest extends TestCase
         $this->assertSame(36, strlen($jir));
     }
 
-    public function setBillRequest()
+    public function getRacunZahtjev()
     {
-        $refund = new Refund("Naziv naknade", 5.44);
-
-        $billNumber = new BillNumber(1, "ODV1", "1");
+        $billNumber = new BrojRacunaType(1, "ODV1", "1");
 
         $istPdv    = [];
-        $listPdv[] = new TaxRate(25.1, 400.1, 20.1, null);
-        $listPdv[] = new TaxRate(10.1, 500.1, 15.444, null);
+        $listPdv[] = new PorezType(25.1, 400.1, 20.1, null);
+        $listPdv[] = new PorezType(10.1, 500.1, 15.444, null);
 
         $listPnp   = [];
-        $listPnp[] = new TaxRate(30.1, 100.1, 10.1, null);
-        $listPnp[] = new TaxRate(20.1, 200.1, 20.1, null);
+        $listPnp[] = new PorezType(30.1, 100.1, 10.1, null);
+        $listPnp[] = new PorezType(20.1, 200.1, 20.1, null);
 
         $listOtherTaxRate   = [];
-        $listOtherTaxRate[] = new TaxRate(40.1, 453.3, 12.1, "Naziv1");
-        $listOtherTaxRate[] = new TaxRate(27.1, 445.1, 50.1, "Naziv2");
-
-        $bill = new Bill();
+        $listOtherTaxRate[] = new PorezOstaloType("Naziv1", 40.1, 453.3, 12.1);
+        $listOtherTaxRate[] = new PorezOstaloType("Naziv2", 27.1, 445.1, 50.1);
+        $bill               = new RacunType();
 
         $bill->setOib("32314900695");
-        $bill->setHavePDV(true);
-        $bill->setDateTime("15.07.2014T20:00:00");
-        //  $bill->setNoteOfOrder("P");
-        $bill->setBillNumber($billNumber);
-        $bill->setListPDV($listPdv);
-        $bill->setListPNP($listPnp);
-        $bill->setListOtherTaxRate($listOtherTaxRate);
-        $bill->setTaxFreeValue(23.5);
-        $bill->setMarginForTaxRate(32.0);
-        $bill->setTaxFree(5.1);
-        //$bill->setRefund(refund);
-        $bill->setTotalValue(456.1);
-        $bill->setTypeOfPlacanje("G");
-        $bill->setOibOperative("34562123431");
+        $bill->setUSustPdv(true);
+        $bill->setDatVrijeme("15.07.2014T20:00:00");
+
+        $bill->setBrRac($billNumber);
+        $bill->setPdv($listPdv);
+        $bill->setPnp($listPnp);
+        $bill->setOstaliPor($listOtherTaxRate);
+        $bill->setIznosOslobPdv(23.5);
+        $bill->setIznosMarza(32.0);
+        $bill->setIznosNePodlOpor(5.1);
+        $bill->setIznosUkupno(456.1);
+        $bill->setNacinPlac("G");
+        $bill->setOibOper("34562123431");
 
         $fis = new Fiskalizacija(
             $_ENV['CERTIFICATE_PATH'],
             $_ENV['CERTIFICATE_PASSWORD'],
             "TLS", true);
 
-        $bill->setSecurityCode(
-            $bill->securityCode(
+        $bill->setZastKod(
+            $bill->generirajZastKod(
                 $fis->getPrivateKey(),
-                $bill->oib,
-                $bill->dateTime,
-                $billNumber->numberNoteBill,
-                $billNumber->noteOfBusinessArea,
-                $billNumber->noteOfExcangeDevice,
-                $bill->totalValue
+                $bill->getOib(),
+                $bill->getDatVrijeme(),
+                $billNumber->getBrOznRac(),
+                $billNumber->getOznPosPr(),
+                $billNumber->getOznNapUr(),
+                $bill->getIznosUkupno()
             )
         );
-        $bill->setNoteOfRedelivary(false);
+        $bill->setNakDost(false);
 
-        $billRequest = new BillRequest($bill);
+        $billRequest = new RacunZahtjev();
+        $billRequest->setRacun($bill);
+
         return $billRequest;
     }
+
 }

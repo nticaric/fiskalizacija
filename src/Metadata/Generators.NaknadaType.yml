@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\NaknadaType:
+    properties:
+        nazivN:
+            expose: true
+            access_type: public_method
+            serialized_name: NazivN
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getNazivN
+                setter: setNazivN
+            type: string
+        iznosN:
+            expose: true
+            access_type: public_method
+            serialized_name: IznosN
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getIznosN
+                setter: setIznosN
+            type: string

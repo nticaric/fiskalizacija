@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\GreskaType:
+    properties:
+        sifraGreske:
+            expose: true
+            access_type: public_method
+            serialized_name: SifraGreske
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getSifraGreske
+                setter: setSifraGreske
+            type: string
+        porukaGreske:
+            expose: true
+            access_type: public_method
+            serialized_name: PorukaGreske
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPorukaGreske
+                setter: setPorukaGreske
+            type: string

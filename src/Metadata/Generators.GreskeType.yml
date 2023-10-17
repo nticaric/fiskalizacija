@@ -1,0 +1,16 @@
+Nticaric\Fiskalizacija\Generators\GreskeType:
+    properties:
+        greska:
+            expose: true
+            access_type: public_method
+            serialized_name: Greska
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getGreska
+                setter: setGreska
+            xml_list:
+                inline: true
+                entry_name: Greska
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            type: array<Nticaric\Fiskalizacija\Generators\GreskaType>

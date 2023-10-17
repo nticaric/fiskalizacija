@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\RacunNapojnicaType\PrateciDokumentAType:
+    properties:
+        jirPD:
+            expose: true
+            access_type: public_method
+            serialized_name: JirPD
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getJirPD
+                setter: setJirPD
+            type: string
+        zastKodPD:
+            expose: true
+            access_type: public_method
+            serialized_name: ZastKodPD
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getZastKodPD
+                setter: setZastKodPD
+            type: string

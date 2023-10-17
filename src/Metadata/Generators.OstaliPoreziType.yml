@@ -1,0 +1,16 @@
+Nticaric\Fiskalizacija\Generators\OstaliPoreziType:
+    properties:
+        porez:
+            expose: true
+            access_type: public_method
+            serialized_name: Porez
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPorez
+                setter: setPorez
+            xml_list:
+                inline: true
+                entry_name: Porez
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            type: array<Nticaric\Fiskalizacija\Generators\PorezOstaloType>

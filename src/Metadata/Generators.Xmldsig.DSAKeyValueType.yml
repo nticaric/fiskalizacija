@@ -1,0 +1,72 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\DSAKeyValueType:
+    properties:
+        p:
+            expose: true
+            access_type: public_method
+            serialized_name: P
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getP
+                setter: setP
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        q:
+            expose: true
+            access_type: public_method
+            serialized_name: Q
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getQ
+                setter: setQ
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        g:
+            expose: true
+            access_type: public_method
+            serialized_name: G
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getG
+                setter: setG
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        'y':
+            expose: true
+            access_type: public_method
+            serialized_name: 'Y'
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getY
+                setter: setY
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        j:
+            expose: true
+            access_type: public_method
+            serialized_name: J
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getJ
+                setter: setJ
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        seed:
+            expose: true
+            access_type: public_method
+            serialized_name: Seed
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getSeed
+                setter: setSeed
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        pgenCounter:
+            expose: true
+            access_type: public_method
+            serialized_name: PgenCounter
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getPgenCounter
+                setter: setPgenCounter
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded

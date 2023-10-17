@@ -1,0 +1,52 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\X509DataType:
+    properties:
+        x509IssuerSerial:
+            expose: true
+            access_type: public_method
+            serialized_name: X509IssuerSerial
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509IssuerSerial
+                setter: setX509IssuerSerial
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\X509IssuerSerialType
+        x509SKI:
+            expose: true
+            access_type: public_method
+            serialized_name: X509SKI
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509SKI
+                setter: setX509SKI
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        x509SubjectName:
+            expose: true
+            access_type: public_method
+            serialized_name: X509SubjectName
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509SubjectName
+                setter: setX509SubjectName
+            type: string
+        x509Certificate:
+            expose: true
+            access_type: public_method
+            serialized_name: X509Certificate
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509Certificate
+                setter: setX509Certificate
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
+        x509CRL:
+            expose: true
+            access_type: public_method
+            serialized_name: X509CRL
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509CRL
+                setter: setX509CRL
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded

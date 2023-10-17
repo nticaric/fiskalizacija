@@ -1,0 +1,86 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\KeyInfoType:
+    properties:
+        id:
+            expose: true
+            access_type: public_method
+            serialized_name: Id
+            accessor:
+                getter: getId
+                setter: setId
+            xml_attribute: true
+            type: string
+        keyName:
+            expose: true
+            access_type: public_method
+            serialized_name: KeyName
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getKeyName
+                setter: setKeyName
+            type: string
+        keyValue:
+            expose: true
+            access_type: public_method
+            serialized_name: KeyValue
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getKeyValue
+                setter: setKeyValue
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\KeyValue
+        retrievalMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: RetrievalMethod
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getRetrievalMethod
+                setter: setRetrievalMethod
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\RetrievalMethod
+        x509Data:
+            expose: true
+            access_type: public_method
+            serialized_name: X509Data
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getX509Data
+                setter: setX509Data
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\X509Data
+        pGPData:
+            expose: true
+            access_type: public_method
+            serialized_name: PGPData
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getPGPData
+                setter: setPGPData
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\PGPData
+        sPKIData:
+            expose: true
+            access_type: public_method
+            serialized_name: SPKIData
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getSPKIData
+                setter: setSPKIData
+            type: array<GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded>
+            xml_list:
+                inline: false
+                entry_name: SPKISexp
+                skip_when_empty: true
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+        mgmtData:
+            expose: true
+            access_type: public_method
+            serialized_name: MgmtData
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getMgmtData
+                setter: setMgmtData
+            type: string

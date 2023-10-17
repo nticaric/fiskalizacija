@@ -1,0 +1,3 @@
+Nticaric\Fiskalizacija\Generators\NapojnicaOdgovor:
+    xml_root_name: NapojnicaOdgovor
+    xml_root_namespace: 'http://www.apis-it.hr/fin/2012/types/f73'

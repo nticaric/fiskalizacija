@@ -1,0 +1,22 @@
+Nticaric\Fiskalizacija\Generators\PorukaOdgovoraType:
+    properties:
+        sifraPoruke:
+            expose: true
+            access_type: public_method
+            serialized_name: SifraPoruke
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getSifraPoruke
+                setter: setSifraPoruke
+            type: string
+        poruka:
+            expose: true
+            access_type: public_method
+            serialized_name: Poruka
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getPoruka
+                setter: setPoruka
+            type: string

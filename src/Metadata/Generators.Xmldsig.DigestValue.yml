@@ -1,0 +1,12 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\DigestValue:
+    xml_root_name: DigestValue
+    xml_root_namespace: 'http://www.w3.org/2000/09/xmldsig#'
+    properties:
+        __value:
+            expose: true
+            xml_value: true
+            access_type: public_method
+            accessor:
+                getter: value
+                setter: value
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded

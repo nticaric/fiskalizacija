@@ -1,0 +1,64 @@
+Nticaric\Fiskalizacija\Generators\Xmldsig\ReferenceType:
+    properties:
+        id:
+            expose: true
+            access_type: public_method
+            serialized_name: Id
+            accessor:
+                getter: getId
+                setter: setId
+            xml_attribute: true
+            type: string
+        uRI:
+            expose: true
+            access_type: public_method
+            serialized_name: URI
+            accessor:
+                getter: getURI
+                setter: setURI
+            xml_attribute: true
+            type: string
+        type:
+            expose: true
+            access_type: public_method
+            serialized_name: Type
+            accessor:
+                getter: getType
+                setter: setType
+            xml_attribute: true
+            type: string
+        transforms:
+            expose: true
+            access_type: public_method
+            serialized_name: Transforms
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getTransforms
+                setter: setTransforms
+            type: array<Nticaric\Fiskalizacija\Generators\Xmldsig\Transform>
+            xml_list:
+                inline: false
+                entry_name: Transform
+                skip_when_empty: true
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+        digestMethod:
+            expose: true
+            access_type: public_method
+            serialized_name: DigestMethod
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getDigestMethod
+                setter: setDigestMethod
+            type: Nticaric\Fiskalizacija\Generators\Xmldsig\DigestMethod
+        digestValue:
+            expose: true
+            access_type: public_method
+            serialized_name: DigestValue
+            xml_element:
+                namespace: 'http://www.w3.org/2000/09/xmldsig#'
+            accessor:
+                getter: getDigestValue
+                setter: setDigestValue
+            type: GoetasWebservices\Xsd\XsdToPhp\Jms\Base64Encoded
