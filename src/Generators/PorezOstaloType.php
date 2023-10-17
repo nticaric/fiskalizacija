@@ -41,9 +41,9 @@ class PorezOstaloType
     public function __construct($naziv, $stopa, $osnovica, $iznos)
     {
         $this->naziv    = $naziv;
-        $this->stopa    = $stopa;
-        $this->osnovica = $osnovica;
-        $this->iznos    = $iznos;
+        $this->stopa    = number_format($stopa, 2, '.', '');
+        $this->osnovica = number_format($osnovica, 2, '.', '');
+        $this->iznos    = number_format($iznos, 2, '.', '');
     }
 
     /**

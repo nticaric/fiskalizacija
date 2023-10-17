@@ -526,7 +526,7 @@ class RacunPDType
      */
     public function setIznosOslobPdv($iznosOslobPdv)
     {
-        $this->iznosOslobPdv = $iznosOslobPdv;
+        $this->iznosOslobPdv = number_format($iznosOslobPdv, 2, '.', '');
         return $this;
     }
 
@@ -872,4 +872,3 @@ class RacunPDType
         return $this;
     }
 }
-

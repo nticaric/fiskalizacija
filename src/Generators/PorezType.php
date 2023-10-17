@@ -7,6 +7,7 @@ namespace Nticaric\Fiskalizacija\Generators;
  *
  *
  * XSD Type: PorezType
+ *
  */
 class PorezType
 {
@@ -33,9 +34,9 @@ class PorezType
 
     public function __construct($stopa, $osnovica, $iznos)
     {
-        $this->stopa    = $stopa;
-        $this->osnovica = $osnovica;
-        $this->iznos    = $iznos;
+        $this->stopa    = number_format($stopa, 2, '.', '');
+        $this->osnovica = number_format($osnovica, 2, '.', '');
+        $this->iznos    = number_format($iznos, 2, '.', '');
     }
 
     /**

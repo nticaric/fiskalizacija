@@ -19,7 +19,7 @@ class XMLSerializer
         $serializerBuilder = SerializerBuilder::create();
         $metaDataDir       = dirname(__DIR__) . '/src/Metadata';
 
-        $serializerBuilder->addMetadataDir($metaDataDir, 'Nticaric\Fiskalizacija\Generators');
+        $serializerBuilder->addMetadataDir($metaDataDir, 'Nticaric\Fiskalizacija');
         $serializerBuilder->configureHandlers(function (HandlerRegistryInterface $handler) use ($serializerBuilder) {
             $serializerBuilder->addDefaultHandlers();
             $handler->registerSubscribingHandler(new BaseTypesHandler()); // XMLSchema List handling

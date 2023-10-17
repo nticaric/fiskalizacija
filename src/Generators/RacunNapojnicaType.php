@@ -534,7 +534,7 @@ class RacunNapojnicaType
      */
     public function setIznosOslobPdv($iznosOslobPdv)
     {
-        $this->iznosOslobPdv = $iznosOslobPdv;
+        $this->iznosOslobPdv = number_format($iznosOslobPdv, 2, '.', '');
         return $this;
     }
 
@@ -908,4 +908,3 @@ class RacunNapojnicaType
         return $this;
     }
 }
-

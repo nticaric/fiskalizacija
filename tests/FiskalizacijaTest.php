@@ -7,6 +7,7 @@ use Nticaric\Fiskalizacija\Generators\PorezOstaloType;
 use Nticaric\Fiskalizacija\Generators\PorezType;
 use Nticaric\Fiskalizacija\Generators\RacunType;
 use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
+use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
 use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
@@ -65,7 +66,18 @@ class FiskalizacijaTest extends TestCase
         $serializer  = new XMLSerializer($billRequest);
         $xml         = $serializer->toXml();
 
-        dd($billRequest);
+        $xsdPath = dirname(__DIR__) . "/docs/Fiskalizacija-WSDL-EDUC_v1.7/schema/FiskalizacijaSchema.xsd";
+        // Load the XML
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+
+        if ($dom->schemaValidate($xsdPath)) {
+            $this->assertTrue(true, "XML je validan");
+        } else {
+            $this->assertTrue(false, "XML nije validan");
+        }
+
+        dd($xml);
 
         $fis = new Fiskalizacija(
             $_ENV['CERTIFICATE_PATH'],
@@ -98,6 +110,7 @@ class FiskalizacijaTest extends TestCase
         $bill               = new RacunType();
 
         $bill->setOib("32314900695");
+        $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
         $bill->setDatVrijeme("15.07.2014T20:00:00");
 
@@ -105,9 +118,9 @@ class FiskalizacijaTest extends TestCase
         $bill->setPdv($listPdv);
         $bill->setPnp($listPnp);
         $bill->setOstaliPor($listOtherTaxRate);
-        $bill->setIznosOslobPdv(23.5);
-        $bill->setIznosMarza(32.0);
-        $bill->setIznosNePodlOpor(5.1);
+        $bill->setIznosOslobPdv(23.50);
+        $bill->setIznosMarza(32.00);
+        $bill->setIznosNePodlOpor(5.10);
         $bill->setIznosUkupno(456.1);
         $bill->setNacinPlac("G");
         $bill->setOibOper("34562123431");
@@ -132,6 +145,10 @@ class FiskalizacijaTest extends TestCase
 
         $billRequest = new RacunZahtjev();
         $billRequest->setRacun($bill);
+
+        $zaglavlje = new ZaglavljeType;
+
+        $billRequest->setZaglavlje($zaglavlje);
 
         return $billRequest;
     }

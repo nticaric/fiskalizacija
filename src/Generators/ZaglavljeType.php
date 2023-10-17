@@ -33,6 +33,11 @@ class ZaglavljeType
      */
     private $datumVrijeme = null;
 
+    public function __construct()
+    {
+        $this->datumVrijeme = \Carbon\Carbon::now()->format('d.m.Y\TH:i:s');
+        $this->idPoruke     = $this->generateUUID();
+    }
     /**
      * Gets as idPoruke
      *
@@ -102,5 +107,15 @@ class ZaglavljeType
         $this->datumVrijeme = $datumVrijeme;
         return $this;
     }
-}
 
+    public function generateUUID()
+    {
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        );
+    }
+}
