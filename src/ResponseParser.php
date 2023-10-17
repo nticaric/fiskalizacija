@@ -47,4 +47,9 @@ class ResponseParser
     {
         return $this->document;
     }
+
+    public function query($query)
+    {
+        return $this->xpath->query($query);
+    }
 }

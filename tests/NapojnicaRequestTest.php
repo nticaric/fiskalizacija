@@ -2,6 +2,7 @@
 
 use Nticaric\Fiskalizacija\Bill\Bill;
 use Nticaric\Fiskalizacija\Bill\BillNumber;
+use Nticaric\Fiskalizacija\Bill\BillRequest;
 use Nticaric\Fiskalizacija\Bill\Napojnica;
 use Nticaric\Fiskalizacija\Bill\TaxRate;
 use Nticaric\Fiskalizacija\Fiskalizacija;
@@ -10,6 +11,50 @@ use PHPUnit\Framework\TestCase;
 
 class NapojnicaRequestTest extends TestCase
 {
+    public function testNapojnicaRequest()
+    {
+        $napojnicaXML   = $this->generirajIspravanXML();
+        $bill           = $this->generateBill();
+        $billRequest    = new BillRequest($bill);
+        $billRequestXML = $billRequest->toXML();
+
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
+
+        $signedBillRequestXML = $fis->signXML($billRequestXML);
+        $billRes              = $fis->sendSoap($signedBillRequestXML);
+
+        $signedNapojnicaXML = $fis->signXML($napojnicaXML);
+        $napojnicaRes       = $fis->sendSoap($signedNapojnicaXML);
+
+        $sifraPoruke = $napojnicaRes->query('/soap:Envelope/soap:Body/tns:NapojnicaOdgovor/tns:PorukaOdgovora/tns:SifraPoruke')[0]->nodeValue;
+        $poruka      = $napojnicaRes->query('/soap:Envelope/soap:Body/tns:NapojnicaOdgovor/tns:PorukaOdgovora/tns:Poruka')[0]->nodeValue;
+
+        $this->assertEquals($sifraPoruke, "p002");
+        $this->assertEquals($poruka, "Uspješna dostava podataka o napojnici.");
+    }
+
+    public function testBillSNapojnicom()
+    {
+        $bill = $this->generateBill();
+
+        $napojnica = new Napojnica(2.00, "T");
+        $bill->setNapojnica($napojnica);
+
+        $billRequest = new BillRequest($bill);
+
+        $fis = new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS", true);
+
+        $signedBillRequestXML = $fis->signXML($billRequest->toXML());
+        $billRes              = $fis->sendSoap($signedBillRequestXML);
+        dd($billRes);
+    }
+
     public function testValidateNapojnicaRequestXML()
     {
         $xml = $this->generirajIspravanXML();
@@ -27,6 +72,18 @@ class NapojnicaRequestTest extends TestCase
     }
 
     public function generirajIspravanXML()
+    {
+        $bill = $this->generateBill();
+
+        $napojnica = new Napojnica(2.00, "T");
+        $bill->setNapojnica($napojnica);
+
+        $napojnicaRequest = new NapojnicaRequest($bill);
+
+        return $napojnicaRequest->toXML();
+    }
+
+    public function generateBill()
     {
         $billNumber = new BillNumber(1, "ODV1", "1");
 
@@ -46,7 +103,7 @@ class NapojnicaRequestTest extends TestCase
 
         $bill->setOib("32314900695");
         $bill->setHavePDV(true);
-        $invoiceDate = "15.07.2014T20:00:00";
+        $invoiceDate = (new DateTime())->format('d.m.Y\TH:i:s');
         $bill->setDateTime($invoiceDate);
 
         $bill->setBillNumber($billNumber);
@@ -78,11 +135,7 @@ class NapojnicaRequestTest extends TestCase
         );
         $bill->setSecurityCode($zki);
 
-        $napojnica = new Napojnica(2.00, "T");
-        $bill->setNapojnica($napojnica);
+        return $bill;
 
-        $napojnicaRequest = new NapojnicaRequest($bill);
-
-        return $napojnicaRequest->toXML();
     }
 }
