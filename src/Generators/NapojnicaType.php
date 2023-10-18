@@ -20,6 +20,11 @@ class NapojnicaType
      */
     private $nacinPlacanjaNapojnice = null;
 
+    public function __construct($iznosNapojnice, $nacinPlacanjaNapojnice)
+    {
+        $this->iznosNapojnice         = number_format($iznosNapojnice, 2, '.', '');
+        $this->nacinPlacanjaNapojnice = $nacinPlacanjaNapojnice;
+    }
     /**
      * Gets as iznosNapojnice
      *
@@ -64,4 +69,3 @@ class NapojnicaType
         return $this;
     }
 }
-

@@ -13,6 +13,7 @@ use DOMDocument;
 use DOMElement;
 use Exception;
 use Nticaric\Fiskalizacija\SoapClient;
+use Nticaric\Fiskalizacija\XMLSerializer;
 
 class Fiskalizacija
 {
@@ -198,6 +199,16 @@ class Fiskalizacija
             }
         }
 
+    }
+
+    public function signAndSend($request)
+    {
+        $serializer = new XMLSerializer($request);
+        $xml        = $serializer->toXml();
+
+        $soapMessage = $this->signXML($xml);
+
+        return $this->sendSoap($soapMessage);
     }
 
 }

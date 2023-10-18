@@ -1,0 +1,12 @@
+Nticaric\Fiskalizacija\Generators\EchoRequest:
+    xml_root_name: EchoRequest
+    xml_root_namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+    properties:
+        message:
+            expose: true
+            access_type: public_method
+            xml_value: true  # This will treat the property as the XML value
+            accessor:
+                getter: getMessage
+                setter: setMessage
+            type: string

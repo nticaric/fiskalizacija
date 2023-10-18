@@ -29,6 +29,11 @@ class NapojnicaZahtjevAType
      */
     private $signature = null;
 
+    public function __construct()
+    {
+        $this->setId(uniqid());
+    }
+
     /**
      * Gets as id
      *
@@ -121,4 +126,3 @@ class NapojnicaZahtjevAType
         return $this;
     }
 }
-

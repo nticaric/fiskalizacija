@@ -907,4 +907,23 @@ class RacunNapojnicaType
         $this->napojnica = $napojnica;
         return $this;
     }
+
+    public function generirajZastKod($pkey, $oib, $dt, $bor, $opp, $onu, $uir)
+    {
+        $medjurezultat = "";
+        $medjurezultat .= $oib; // 1. OIB
+        $medjurezultat .= $dt; // 2. Datum i vrijeme izdavanja računa zapisan kao tekst u formatu 'dd.mm.gggg hh:mm:ss'
+        $medjurezultat .= $bor; // 3. Brojcana oznaka racuna
+        $medjurezultat .= $opp; // 4. Oznaka poslovnog prostora
+        $medjurezultat .= $onu; // 5. Oznaka naplatnog uređaja
+        $medjurezultat .= $uir; // 6. Ukupni iznos računa
+
+        $zastKodSignature = null;
+
+        if (!openssl_sign($medjurezultat, $zastKodSignature, $pkey, OPENSSL_ALGO_SHA1)) {
+            throw new \Exception('Error creating security code');
+        }
+
+        return $this->zastKod = md5($zastKodSignature);
+    }
 }

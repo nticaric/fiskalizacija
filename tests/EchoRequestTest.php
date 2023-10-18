@@ -1,7 +1,8 @@
 <?php
 
-use Nticaric\Fiskalizacija\EchoRequest;
+use Nticaric\Fiskalizacija\Generators\EchoRequest;
 use Nticaric\Fiskalizacija\SoapClient;
+use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
 class EchoRequestTest extends TestCase
@@ -11,7 +12,9 @@ class EchoRequestTest extends TestCase
         $message = "proizvoljan tekst";
 
         $echoRequest = new EchoRequest($message);
-        $xml         = $echoRequest->toXML();
+
+        $serializer = new XMLSerializer($echoRequest);
+        $xml        = $serializer->toXml();
 
         $soapClient  = new SoapClient("https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest");
         $xmlEnvelope = $soapClient->addEnvelope($xml);

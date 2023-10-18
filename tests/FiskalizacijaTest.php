@@ -23,57 +23,46 @@ class FiskalizacijaTest extends TestCase
         ];
     }
 
+    private function initializeFiskalizacija(): Fiskalizacija
+    {
+        return new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS",
+            true
+        );
+    }
+
     public function testSetCertificate()
     {
         $pathToDemoCert = $_ENV['CERTIFICATE_PATH'];
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $fis = $this->initializeFiskalizacija();
 
         $fis->setCertificate($pathToDemoCert, $_ENV['CERTIFICATE_PASSWORD']);
         $this->assertNotNull($fis->certificate, 'Certificate must not be null');
     }
 
-    public function testSendSoapBillRequest()
+    public function testBillRequestSignatureAndSending()
     {
         $config      = $this->config();
         $billRequest = $this->getRacunZahtjev();
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $fis = $this->initializeFiskalizacija();
 
-        $serializer = new XMLSerializer($billRequest);
-        $xml        = $serializer->toXml();
+        $res = $fis->signAndSend($billRequest);
 
-        $xsdPath = dirname(__DIR__) . "/docs/Fiskalizacija-WSDL-EDUC_v1.7/schema/FiskalizacijaSchema.xsd";
-        // Load the XML
-        $dom = new DOMDocument();
-        $dom->loadXML($xml);
-
-        $soapMessage = $fis->signXML($xml);
-
-        $res = $fis->sendSoap($soapMessage);
         $this->assertEquals('tns:RacunOdgovor', $res->body()->nodeName);
     }
 
     public function testJirGeneration()
     {
         $billRequest = $this->getRacunZahtjev();
-        $serializer  = new XMLSerializer($billRequest);
-        $xml         = $serializer->toXml();
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $fis = $this->initializeFiskalizacija();
 
-        $signedXML = $fis->signXML($xml);
+        $res = $fis->signAndSend($billRequest);
 
-        $res = $fis->sendSoap($signedXML);
         $jir = $res->getJir();
 
         $this->assertSame(36, strlen($jir));
@@ -83,7 +72,7 @@ class FiskalizacijaTest extends TestCase
     {
         $billNumber = new BrojRacunaType(1, "ODV1", "1");
 
-        $istPdv    = [];
+        $listPdv   = [];
         $listPdv[] = new PorezType(25.1, 400.1, 20.1, null);
         $listPdv[] = new PorezType(10.1, 500.1, 15.444, null);
 
@@ -112,10 +101,7 @@ class FiskalizacijaTest extends TestCase
         $bill->setNacinPlac("G");
         $bill->setOibOper("34562123431");
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $fis = $this->initializeFiskalizacija();
 
         $bill->setZastKod(
             $bill->generirajZastKod(
