@@ -211,4 +211,9 @@ class Fiskalizacija
         return $this->sendSoap($soapMessage);
     }
 
+    public function certificateInfo()
+    {
+        return openssl_x509_parse($this->certificate['cert']);
+    }
+
 }

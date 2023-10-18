@@ -16,27 +16,35 @@ use PHPUnit\Framework\TestCase;
 
 class NapojnicaRequestTest extends TestCase
 {
+    private function initializeFiskalizacija(): Fiskalizacija
+    {
+        return new Fiskalizacija(
+            $_ENV['CERTIFICATE_PATH'],
+            $_ENV['CERTIFICATE_PASSWORD'],
+            "TLS",
+            true
+        );
+    }
+
     public function testBillSNapojnicom()
     {
-        $bill = $this->generateNapojnicaBill();
+        $racun          = $this->generateBill();
+        $napojnicaRacun = $this->generateNapojnicaBill();
 
-        $napojnica = new NapojnicaType(2.00, "T");
-        $bill->setNapojnica($napojnica);
+        $napojnicaRacun->setNapojnica(new NapojnicaType(2.00, "T"));
 
         $napojnicaZahtjev = new NapojnicaZahtjev;
         $napojnicaZahtjev->setZaglavlje(new ZaglavljeType);
-        $napojnicaZahtjev->setRacun($bill);
+        $napojnicaZahtjev->setRacun($napojnicaRacun);
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $racunZahtjev = new RacunZahtjev;
+        $racunZahtjev->setZaglavlje(new ZaglavljeType);
+        $racunZahtjev->setRacun($racun);
 
-        $serializer = new XMLSerializer($napojnicaZahtjev);
-        $xml        = $serializer->toXml();
+        $fis = $this->initializeFiskalizacija();
 
-        $signed       = $fis->signXML($xml);
-        $napojnicaRes = $fis->sendSoap($signed);
+        $racunRes     = $fis->signAndSend($racunZahtjev);
+        $napojnicaRes = $fis->signAndSend($napojnicaZahtjev);
 
         $sifraPoruke = $napojnicaRes->query('/soap:Envelope/soap:Body/tns:NapojnicaOdgovor/tns:PorukaOdgovora/tns:SifraPoruke')[0]->nodeValue;
         $poruka      = $napojnicaRes->query('/soap:Envelope/soap:Body/tns:NapojnicaOdgovor/tns:PorukaOdgovora/tns:Poruka')[0]->nodeValue;
@@ -109,10 +117,7 @@ class NapojnicaRequestTest extends TestCase
         $bill->setNacinPlac("G");
         $bill->setOibOper("34562123431");
 
-        $fis = new Fiskalizacija(
-            $_ENV['CERTIFICATE_PATH'],
-            $_ENV['CERTIFICATE_PASSWORD'],
-            "TLS", true);
+        $fis = $this->initializeFiskalizacija();
 
         $bill->setZastKod(
             $bill->generirajZastKod(
@@ -125,6 +130,59 @@ class NapojnicaRequestTest extends TestCase
                 $bill->getIznosUkupno()
             )
         );
+
+        $bill->setNakDost(false);
+
+        return $bill;
+    }
+
+    public function generateBill()
+    {
+        $billNumber = new BrojRacunaType(1, "ODV1", "1");
+
+        $listPdv   = [];
+        $listPdv[] = new PorezType(25.1, 400.1, 20.1, null);
+        $listPdv[] = new PorezType(10.1, 500.1, 15.444, null);
+
+        $listPnp   = [];
+        $listPnp[] = new PorezType(30.1, 100.1, 10.1, null);
+        $listPnp[] = new PorezType(20.1, 200.1, 20.1, null);
+
+        $listOtherTaxRate   = [];
+        $listOtherTaxRate[] = new PorezOstaloType("Naziv1", 40.1, 453.3, 12.1);
+        $listOtherTaxRate[] = new PorezOstaloType("Naziv2", 27.1, 445.1, 50.1);
+        $bill               = new RacunType();
+
+        $bill->setOib("32314900695");
+        $bill->setOznSlijed("P");
+        $bill->setUSustPdv(true);
+        $bill->setDatVrijeme(\Carbon\Carbon::yesterday()->format('d.m.Y\TH:i:s'));
+
+        $bill->setBrRac($billNumber);
+        $bill->setPdv($listPdv);
+        $bill->setPnp($listPnp);
+        $bill->setOstaliPor($listOtherTaxRate);
+        $bill->setIznosOslobPdv(23.5);
+        $bill->setIznosMarza(32.0);
+        $bill->setIznosNePodlOpor(5.1);
+        $bill->setIznosUkupno(456.1);
+        $bill->setNacinPlac("G");
+        $bill->setOibOper("34562123431");
+
+        $fis = $this->initializeFiskalizacija();
+
+        $bill->setZastKod(
+            $bill->generirajZastKod(
+                $fis->getPrivateKey(),
+                $bill->getOib(),
+                $bill->getDatVrijeme(),
+                $billNumber->getBrOznRac(),
+                $billNumber->getOznPosPr(),
+                $billNumber->getOznNapUr(),
+                $bill->getIznosUkupno()
+            )
+        );
+
         $bill->setNakDost(false);
 
         return $bill;

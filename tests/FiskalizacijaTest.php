@@ -103,17 +103,17 @@ class FiskalizacijaTest extends TestCase
 
         $fis = $this->initializeFiskalizacija();
 
-        $bill->setZastKod(
-            $bill->generirajZastKod(
-                $fis->getPrivateKey(),
-                $bill->getOib(),
-                $bill->getDatVrijeme(),
-                $billNumber->getBrOznRac(),
-                $billNumber->getOznPosPr(),
-                $billNumber->getOznNapUr(),
-                $bill->getIznosUkupno()
-            )
+        $zastKod = $bill->generirajZastKod(
+            $fis->getPrivateKey(),
+            $bill->getOib(),
+            $bill->getDatVrijeme(),
+            $billNumber->getBrOznRac(),
+            $billNumber->getOznPosPr(),
+            $billNumber->getOznNapUr(),
+            $bill->getIznosUkupno()
         );
+
+        $bill->setZastKod($zastKod);
         $bill->setNakDost(false);
 
         $billRequest = new RacunZahtjev();
@@ -124,6 +124,15 @@ class FiskalizacijaTest extends TestCase
         $billRequest->setZaglavlje($zaglavlje);
 
         return $billRequest;
+    }
+
+    public function testDumpCertificate()
+    {
+        $fis = $this->initializeFiskalizacija();
+
+        $info = $fis->certificateInfo();
+
+        $this->assertEquals("Financijska agencija", $info['issuer']['O']);
     }
 
 }
