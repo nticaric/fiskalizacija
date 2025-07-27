@@ -10,7 +10,7 @@
     }],
     "require": {
         "php": ">=7.3.0",
-        "nesbot/carbon": "2.*",
+        "nesbot/carbon": "2.*|3.*",
         "endroid/qr-code": "^5.0",
         "goetas-webservices/xsd2php-runtime": "^0.2.16"
     },
