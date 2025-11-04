@@ -158,6 +158,13 @@ class RacunType
     private $specNamj = null;
 
     /**
+     * Osobni identifikacijski broj primatelja računa.
+     *
+     * @var string $oibPrimateljaRacuna
+     */
+    private $oibPrimateljaRacuna = null;
+
+    /**
      * Gets as oib
      *
      * Osobni identifikacijski broj obveznika fiskalizacije.
@@ -180,6 +187,32 @@ class RacunType
     public function setOib($oib)
     {
         $this->oib = $oib;
+        return $this;
+    }
+
+    /**
+     * Gets a oibPrimateljaRacuna
+     *
+     * Osobni identifikacijski broj primatelja računa.
+     *
+     * @param string $oibPrimateljaRacuna
+     * @return string
+     */
+    public function getOibPrimateljaRacuna()
+    {
+        return $this->oibPrimateljaRacuna;
+    }
+    /**
+     * Sets a new oibPrimateljaRacuna
+     *
+     * Osobni identifikacijski broj primatelja računa.
+     *
+     * @param string $oibPrimateljaRacuna
+     * @return self
+     */
+    public function setOibPrimateljaRacuna($oibPrimateljaRacuna)
+    {
+        $this->oibPrimateljaRacuna = $oibPrimateljaRacuna;
         return $this;
     }
 

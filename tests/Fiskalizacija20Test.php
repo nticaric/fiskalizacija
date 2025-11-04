@@ -11,7 +11,7 @@ use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
 use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
-class FiskalizacijaTest extends TestCase
+class Fiskalizacija20Test extends TestCase
 {
     public function config()
     {
@@ -88,7 +88,7 @@ class FiskalizacijaTest extends TestCase
         $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
-        $bill->setDatVrijeme("03.11.2025T20:00:00");
+        $bill->setDatVrijeme(Carbon::yesterday()->format('d.m.Y\TH:i:s'));
 
         $bill->setBrRac($billNumber);
         $bill->setPdv($listPdv);
@@ -115,6 +115,7 @@ class FiskalizacijaTest extends TestCase
 
         $bill->setZastKod($zastKod);
         $bill->setNakDost(false);
+        $bill->setOibPrimateljaRacuna("24715430428");
 
         $billRequest = new RacunZahtjev();
         $billRequest->setRacun($bill);

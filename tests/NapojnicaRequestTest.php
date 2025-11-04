@@ -89,19 +89,19 @@ class NapojnicaRequestTest extends TestCase
         $billNumber = new BrojRacunaType(1, "ODV1", "1");
 
         $listPdv   = [];
-        $listPdv[] = new PorezType(25.1, 400.1, 20.1, null);
-        $listPdv[] = new PorezType(10.1, 500.1, 15.444, null);
+        $listPdv[] = new PorezType(25.0, 400.1, 20.1, null);
+        $listPdv[] = new PorezType(25.0, 500.1, 15.444, null);
 
         $listPnp   = [];
-        $listPnp[] = new PorezType(30.1, 100.1, 10.1, null);
-        $listPnp[] = new PorezType(20.1, 200.1, 20.1, null);
+        $listPnp[] = new PorezType(2.1, 100.1, 10.1, null);
+        $listPnp[] = new PorezType(2.1, 200.1, 20.1, null);
 
         $listOtherTaxRate   = [];
         $listOtherTaxRate[] = new PorezOstaloType("Naziv1", 40.1, 453.3, 12.1);
         $listOtherTaxRate[] = new PorezOstaloType("Naziv2", 27.1, 445.1, 50.1);
         $bill               = new RacunNapojnicaType();
 
-        $bill->setOib("32314900695");
+        $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
         $bill->setDatVrijeme(\Carbon\Carbon::yesterday()->format('d.m.Y\TH:i:s'));
@@ -115,7 +115,7 @@ class NapojnicaRequestTest extends TestCase
         $bill->setIznosNePodlOpor(5.1);
         $bill->setIznosUkupno(456.1);
         $bill->setNacinPlac("G");
-        $bill->setOibOper("34562123431");
+        $bill->setOibOper("07851002909");
 
         $fis = $this->initializeFiskalizacija();
 
@@ -141,19 +141,19 @@ class NapojnicaRequestTest extends TestCase
         $billNumber = new BrojRacunaType(1, "ODV1", "1");
 
         $listPdv   = [];
-        $listPdv[] = new PorezType(25.1, 400.1, 20.1, null);
-        $listPdv[] = new PorezType(10.1, 500.1, 15.444, null);
+        $listPdv[] = new PorezType(25.0, 400.1, 20.1, null);
+        $listPdv[] = new PorezType(25.0, 500.1, 15.444, null);
 
         $listPnp   = [];
-        $listPnp[] = new PorezType(30.1, 100.1, 10.1, null);
-        $listPnp[] = new PorezType(20.1, 200.1, 20.1, null);
+        $listPnp[] = new PorezType(2.1, 100.1, 10.1, null);
+        $listPnp[] = new PorezType(2.1, 200.1, 20.1, null);
 
         $listOtherTaxRate   = [];
         $listOtherTaxRate[] = new PorezOstaloType("Naziv1", 40.1, 453.3, 12.1);
         $listOtherTaxRate[] = new PorezOstaloType("Naziv2", 27.1, 445.1, 50.1);
         $bill               = new RacunType();
 
-        $bill->setOib("32314900695");
+        $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
         $bill->setDatVrijeme(\Carbon\Carbon::yesterday()->format('d.m.Y\TH:i:s'));
@@ -167,7 +167,7 @@ class NapojnicaRequestTest extends TestCase
         $bill->setIznosNePodlOpor(5.1);
         $bill->setIznosUkupno(456.1);
         $bill->setNacinPlac("G");
-        $bill->setOibOper("34562123431");
+        $bill->setOibOper("07851002909");
 
         $fis = $this->initializeFiskalizacija();
 
