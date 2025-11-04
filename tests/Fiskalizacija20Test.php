@@ -8,7 +8,6 @@ use Nticaric\Fiskalizacija\Generators\PorezType;
 use Nticaric\Fiskalizacija\Generators\RacunType;
 use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
 use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
-use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
 class Fiskalizacija20Test extends TestCase

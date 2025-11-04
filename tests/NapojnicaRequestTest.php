@@ -104,7 +104,7 @@ class NapojnicaRequestTest extends TestCase
         $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
-        $bill->setDatVrijeme(\Carbon\Carbon::yesterday()->format('d.m.Y\TH:i:s'));
+        $bill->setDatVrijeme(Carbon::yesterday()->format('d.m.Y\TH:i:s'));
 
         $bill->setBrRac($billNumber);
         $bill->setPdv($listPdv);

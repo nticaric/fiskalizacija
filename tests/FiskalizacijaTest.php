@@ -8,7 +8,6 @@ use Nticaric\Fiskalizacija\Generators\PorezType;
 use Nticaric\Fiskalizacija\Generators\RacunType;
 use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
 use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
-use Nticaric\Fiskalizacija\XMLSerializer;
 use PHPUnit\Framework\TestCase;
 
 class FiskalizacijaTest extends TestCase
@@ -88,7 +87,7 @@ class FiskalizacijaTest extends TestCase
         $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
         $bill->setUSustPdv(true);
-        $bill->setDatVrijeme("03.11.2025T20:00:00");
+        $bill->setDatVrijeme(Carbon::yesterday()->format('d.m.Y\TH:i:s'));
 
         $bill->setBrRac($billNumber);
         $bill->setPdv($listPdv);
