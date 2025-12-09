@@ -10,15 +10,15 @@ use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
 use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
 use PHPUnit\Framework\TestCase;
 
-class FiskalizacijaTest extends TestCase
+class Fiskalizacija20Test extends TestCase
 {
     public function config()
     {
         return [
-            'path'     => $_ENV['CERTIFICATE_PATH'],
-            'pass'     => $_ENV['CERTIFICATE_PASSWORD'],
+            'path' => $_ENV['CERTIFICATE_PATH'],
+            'pass' => $_ENV['CERTIFICATE_PASSWORD'],
             'security' => 'TLS',
-            'demo'     => true
+            'demo' => true
         ];
     }
 
@@ -44,7 +44,7 @@ class FiskalizacijaTest extends TestCase
 
     public function testBillRequestSignatureAndSending()
     {
-        $config      = $this->config();
+        $config = $this->config();
         $billRequest = $this->getRacunZahtjev();
 
         $fis = $this->initializeFiskalizacija();
@@ -71,18 +71,18 @@ class FiskalizacijaTest extends TestCase
     {
         $billNumber = new BrojRacunaType(1, "ODV1", "1");
 
-        $listPdv   = [];
+        $listPdv = [];
         $listPdv[] = new PorezType(25.0, 400.1, 20.1, null);
         $listPdv[] = new PorezType(25.0, 500.1, 15.444, null);
 
-        $listPnp   = [];
+        $listPnp = [];
         $listPnp[] = new PorezType(2.1, 100.1, 10.1, null);
         $listPnp[] = new PorezType(2.1, 200.1, 20.1, null);
 
-        $listOtherTaxRate   = [];
+        $listOtherTaxRate = [];
         $listOtherTaxRate[] = new PorezOstaloType("Naziv1", 40.1, 453.3, 12.1);
         $listOtherTaxRate[] = new PorezOstaloType("Naziv2", 27.1, 445.1, 50.1);
-        $bill               = new RacunType();
+        $bill = new RacunType();
 
         $bill->setOib($_ENV['OIB']);
         $bill->setOznSlijed("P");
@@ -114,6 +114,7 @@ class FiskalizacijaTest extends TestCase
 
         $bill->setZastKod($zastKod);
         $bill->setNakDost(false);
+        $bill->setOibPrimateljaRacuna("24715430428");
 
         $billRequest = new RacunZahtjev();
         $billRequest->setRacun($bill);
