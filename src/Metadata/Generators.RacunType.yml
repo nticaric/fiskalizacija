@@ -210,3 +210,13 @@ Nticaric\Fiskalizacija\Generators\RacunType:
                 getter: getSpecNamj
                 setter: setSpecNamj
             type: string
+        oibPrimateljaRacuna:
+            expose: true
+            access_type: public_method
+            serialized_name: OibPrimateljaRacuna
+            xml_element:
+                namespace: 'http://www.apis-it.hr/fin/2012/types/f73'
+            accessor:
+                getter: getOibPrimateljaRacuna
+                setter: setOibPrimateljaRacuna
+            type: string

@@ -10,7 +10,7 @@ use Nticaric\Fiskalizacija\Generators\RacunZahtjev;
 use Nticaric\Fiskalizacija\Generators\ZaglavljeType;
 use PHPUnit\Framework\TestCase;
 
-class FiskalizacijaTest extends TestCase
+class Fiskalizacija20Test extends TestCase
 {
     public function config()
     {
@@ -114,6 +114,7 @@ class FiskalizacijaTest extends TestCase
 
         $bill->setZastKod($zastKod);
         $bill->setNakDost(false);
+        $bill->setOibPrimateljaRacuna("24715430428");
 
         $billRequest = new RacunZahtjev();
         $billRequest->setRacun($bill);
