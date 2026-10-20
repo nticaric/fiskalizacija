@@ -48,11 +48,9 @@ class SoapClient
         $response = curl_exec($ch);
         $code     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($response) {
-            curl_close($ch);
             return $this->parseResponse($response, $code);
         } else {
             throw new Exception(curl_error($ch));
-            curl_close($ch);
         }
     }
 
