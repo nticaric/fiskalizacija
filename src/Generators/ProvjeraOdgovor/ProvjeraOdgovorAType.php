@@ -175,7 +175,7 @@ class ProvjeraOdgovorAType
      * @param \Nticaric\Fiskalizacija\Generators\GreskaType[] $greske
      * @return self
      */
-    public function setGreske(array $greske = null)
+    public function setGreske(?array $greske = null)
     {
         $this->greske = $greske;
         return $this;
