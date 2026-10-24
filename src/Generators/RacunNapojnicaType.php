@@ -360,7 +360,7 @@ class RacunNapojnicaType
      * @param \Nticaric\Fiskalizacija\Generators\PorezType[] $pdv
      * @return self
      */
-    public function setPdv(array $pdv = null)
+    public function setPdv(?array $pdv = null)
     {
         $this->pdv = $pdv;
         return $this;
@@ -426,7 +426,7 @@ class RacunNapojnicaType
      * @param \Nticaric\Fiskalizacija\Generators\PorezType[] $pnp
      * @return self
      */
-    public function setPnp(array $pnp = null)
+    public function setPnp(?array $pnp = null)
     {
         $this->pnp = $pnp;
         return $this;
@@ -502,7 +502,7 @@ class RacunNapojnicaType
      * @param \Nticaric\Fiskalizacija\Generators\PorezOstaloType[] $ostaliPor
      * @return self
      */
-    public function setOstaliPor(array $ostaliPor = null)
+    public function setOstaliPor(?array $ostaliPor = null)
     {
         $this->ostaliPor = $ostaliPor;
         return $this;
@@ -652,7 +652,7 @@ class RacunNapojnicaType
      * @param \Nticaric\Fiskalizacija\Generators\NaknadaType[] $naknade
      * @return self
      */
-    public function setNaknade(array $naknade = null)
+    public function setNaknade(?array $naknade = null)
     {
         $this->naknade = $naknade;
         return $this;

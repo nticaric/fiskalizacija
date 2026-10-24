@@ -232,7 +232,7 @@ class KeyInfoType
      * @param string[] $sPKIData
      * @return self
      */
-    public function setSPKIData(array $sPKIData = null)
+    public function setSPKIData(?array $sPKIData = null)
     {
         $this->sPKIData = $sPKIData;
         return $this;

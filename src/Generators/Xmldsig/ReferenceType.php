@@ -156,7 +156,7 @@ class ReferenceType
      * @param \Nticaric\Fiskalizacija\Generators\Xmldsig\Transform[] $transforms
      * @return self
      */
-    public function setTransforms(array $transforms = null)
+    public function setTransforms(?array $transforms = null)
     {
         $this->transforms = $transforms;
         return $this;
